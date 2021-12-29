@@ -2,9 +2,11 @@ const express = require("express");
 
 const router = express.Router();
 
-/* GET users listing. */
 router.get("/", (req, res, next) => {
-  res.send("respond with a resource");
+  const videoID = req.query.v;
+
+  if (videoID) res.render("watch", { video: { id: videoID, ext: "mp4" } });
+  else next();
 });
 
 module.exports = router;

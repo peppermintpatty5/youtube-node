@@ -6,7 +6,6 @@ const logger = require("morgan");
 
 const fileRouter = require("./routes/file");
 const indexRouter = require("./routes/index");
-const usersRouter = require("./routes/users");
 
 const app = express();
 
@@ -22,7 +21,6 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
 app.use("/file", fileRouter);
-app.use("/users", usersRouter);
 app.use("/file", express.static(path.join(__dirname, "videos")));
 
 // catch 404 and forward to error handler

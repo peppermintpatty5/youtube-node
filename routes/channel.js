@@ -13,7 +13,7 @@ router.get("/:channel_id", (req, res) => {
       .then((videos) => {
         res.render("channel", {
           videos,
-          formatDate: (date) => moment(date).format("MMM D, YYYY"),
+          formatDate: (date) => moment.utc(date).format("MMM D, YYYY"),
         });
       })
       .catch(() => {

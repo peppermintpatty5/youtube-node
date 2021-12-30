@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Document</title>
+    <title><%= video.title %></title>
     <link rel="stylesheet" href="/stylesheets/style.css" />
   </head>
   <body>
+    <h1><%= video.title %></h1>
     <video controls>
       <source src="<%= `/file/${video.id}.${video.ext}` %>" />
       Sorry, your browser doesn't support embedded videos.
     </video>
+    <p><%= video.view_count %> views</p>
+    <p>Uploaded <%= video.upload_date %></p>
+    <p>
+      <pre><%= video.description %></pre>
+    </p>
   </body>
 </html>

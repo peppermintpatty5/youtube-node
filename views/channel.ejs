@@ -7,7 +7,13 @@
   <body>
     <ol>
       <% videos.forEach(video => { %>
-      <li><%= video.title %></li>
+      <li>
+        <div>
+          <img src="<%= video.thumbnail %>" alt="<%= video.id %>" />
+        </div>
+        <a href="<%= `/watch?v=${video.id}` %>"><%= video.title %></a>
+        <%= video.duration %>
+      </li>
       <% }); %>
     </ol>
   </body>

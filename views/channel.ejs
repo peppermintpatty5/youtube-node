@@ -9,7 +9,7 @@
       <% videos.forEach(video => { %>
       <li>
         <div>
-          <img src="<%= video.thumbnail %>" alt="<%= video.id %>" />
+          <img src="<%= getLocalThumbnail(video) %>" alt="<%= video.id %>" />
           <p><%= formatDuration(video.duration) %></p>
         </div>
         <a href="<%= `/watch?v=${video.id}` %>"><%= video.title %></a>

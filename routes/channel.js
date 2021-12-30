@@ -23,6 +23,10 @@ router.get("/:channel_id", (req, res) => {
 
             return h > 0 ? `${h}:${mm}:${ss}` : `${m}:${ss}`;
           },
+          getLocalThumbnail: (video) => {
+            const ext = new URL(video.thumbnail).pathname.match(/\.(.*)$/)[1];
+            return `/file/${video.id}.${ext}`;
+          },
         });
       })
       .catch(() => {

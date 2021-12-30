@@ -6,6 +6,7 @@ const logger = require("morgan");
 const mongoose = require("mongoose");
 const path = require("path");
 
+const channelRouter = require("./routes/channel");
 const fileRouter = require("./routes/file");
 const indexRouter = require("./routes/index");
 const watchRouter = require("./routes/watch");
@@ -26,6 +27,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
+app.use("/channel", channelRouter);
 app.use("/file", fileRouter);
 app.use("/file", express.static(path.join(__dirname, "videos")));
 app.use("/watch", watchRouter);

@@ -10,8 +10,8 @@
       <source src="<%= `/file/${video.id}.${video.ext}` %>" />
       Sorry, your browser doesn't support embedded videos.
     </video>
-    <p><%= video.view_count %> views</p>
-    <p>Uploaded <%= video.upload_date %></p>
+    <p><%= video.view_count.toLocaleString() %> views</p>
+    <p>Uploaded <%= formatDate(video.upload_date) %></p>
     <p>
       <pre><%= video.description %></pre>
     </p>

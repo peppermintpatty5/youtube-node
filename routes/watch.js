@@ -1,4 +1,5 @@
 const express = require("express");
+const moment = require("moment");
 
 const Video = require("../models/video");
 
@@ -9,10 +10,17 @@ router.get("/", (req, res) => {
     Video.findOne({ id: req.query.v })
       .exec()
       .then((video) => {
-        res.render("watch", { video });
+        if (video !== null) {
+          res.render("watch", {
+            video,
+            formatDate: (date) => moment.utc(date).format("MMM D, YYYY"),
+          });
+        } else {
+          res.sendStatus(404);
+        }
       })
       .catch(() => {
-        res.sendStatus(404);
+        res.sendStatus(500);
       });
   } else {
     res.redirect("/");

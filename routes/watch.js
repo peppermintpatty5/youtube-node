@@ -9,10 +9,14 @@ router.get("/", (req, res) => {
     Video.findOne({ id: req.query.v })
       .exec()
       .then((video) => {
-        res.render("watch", { video });
+        if (video !== null) {
+          res.render("watch", { video });
+        } else {
+          res.sendStatus(404);
+        }
       })
       .catch(() => {
-        res.sendStatus(404);
+        res.sendStatus(500);
       });
   } else {
     res.redirect("/");

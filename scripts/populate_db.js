@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 /* eslint-disable no-console */
+const dotenv = require("dotenv");
 const fs = require("fs/promises");
 const mongoose = require("mongoose");
 const path = require("path");
@@ -18,9 +19,10 @@ function hyphenDate(date) {
   return date.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3");
 }
 
-const dir = process.argv[2];
+dotenv.config();
+mongoose.connect(process.env.MONGO_URI);
 
-mongoose.connect("mongodb://localhost:27017/youtube");
+const dir = process.argv[2];
 
 fs.readdir(dir).then((files) => {
   Promise.all(

@@ -10,10 +10,11 @@
       <li>
         <div>
           <img src="<%= video.thumbnail %>" alt="<%= video.id %>" />
+          <p><%= formatDuration(video.duration) %></p>
         </div>
         <a href="<%= `/watch?v=${video.id}` %>"><%= video.title %></a>
+        <p><%= video.view_count.toLocaleString() %> views</p>
         <p><%= formatDate(video.upload_date) %></p>
-        <p><%= formatDuration(video.duration) %></p>
       </li>
       <% }); %>
     </ol>

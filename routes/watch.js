@@ -1,4 +1,5 @@
 const express = require("express");
+const moment = require("moment");
 
 const Video = require("../models/video");
 
@@ -10,7 +11,10 @@ router.get("/", (req, res) => {
       .exec()
       .then((video) => {
         if (video !== null) {
-          res.render("watch", { video });
+          res.render("watch", {
+            video,
+            formatDate: (date) => moment.utc(date).format("MMM D, YYYY"),
+          });
         } else {
           res.sendStatus(404);
         }

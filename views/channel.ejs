@@ -13,7 +13,7 @@
         </div>
         <a href="<%= `/watch?v=${video.id}` %>"><%= video.title %></a>
         <p><%= formatDate(video.upload_date) %></p>
-        <p><%= video.duration %></p>
+        <p><%= formatDuration(video.duration) %></p>
       </li>
       <% }); %>
     </ol>

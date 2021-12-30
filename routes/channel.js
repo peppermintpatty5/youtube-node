@@ -14,6 +14,15 @@ router.get("/:channel_id", (req, res) => {
         res.render("channel", {
           videos,
           formatDate: (date) => moment.utc(date).format("MMM D, YYYY"),
+          formatDuration: (seconds) => {
+            const s = seconds % 60;
+            const m = Math.floor(seconds / 60) % 60;
+            const h = Math.floor(seconds / 3600);
+            const ss = s >= 10 ? `${s}` : `0${s}`;
+            const mm = m >= 10 ? `${m}` : `0${m}`;
+
+            return h > 0 ? `${h}:${mm}:${ss}` : `${m}:${ss}`;
+          },
         });
       })
       .catch(() => {

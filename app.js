@@ -1,12 +1,17 @@
-const createError = require("http-errors");
-const express = require("express");
-const path = require("path");
 const cookieParser = require("cookie-parser");
+const createError = require("http-errors");
+const dotenv = require("dotenv");
+const express = require("express");
 const logger = require("morgan");
+const mongoose = require("mongoose");
+const path = require("path");
 
 const fileRouter = require("./routes/file");
 const indexRouter = require("./routes/index");
 const watchRouter = require("./routes/watch");
+
+dotenv.config();
+mongoose.connect(process.env.MONGO_URI);
 
 const app = express();
 

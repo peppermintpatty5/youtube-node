@@ -1,4 +1,5 @@
 const express = require("express");
+const moment = require("moment");
 
 const Video = require("../models/video");
 
@@ -10,7 +11,10 @@ router.get("/:channel_id", (req, res) => {
       .sort({ upload_date: "desc" })
       .exec()
       .then((videos) => {
-        res.render("channel", { videos });
+        res.render("channel", {
+          videos,
+          formatDate: (date) => moment(date).format("MMM D, YYYY"),
+        });
       })
       .catch(() => {
         res.sendStatus(500);

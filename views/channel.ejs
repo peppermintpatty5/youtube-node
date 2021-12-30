@@ -12,7 +12,8 @@
           <img src="<%= video.thumbnail %>" alt="<%= video.id %>" />
         </div>
         <a href="<%= `/watch?v=${video.id}` %>"><%= video.title %></a>
-        <%= video.duration %>
+        <p><%= formatDate(video.upload_date) %></p>
+        <p><%= video.duration %></p>
       </li>
       <% }); %>
     </ol>

@@ -5,9 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="/stylesheets/watch.css" />
-  <title>
-    <%= video.title %>
-  </title>
+  <title><%= video.title %></title>
 </head>
 
 <body>
@@ -16,9 +14,7 @@
       <source src="<%= `/file/${video.id}.${video.ext}` %>" />
       Sorry, your browser doesn't support embedded videos.
     </video>
-    <h2>
-      <%= video.title %>
-    </h2>
+    <h2><%= video.title %></h2>
     <p class="info-text">
       <%= video.view_count.toLocaleString() %> views &bull; <%= formatDate(video.upload_date) %>
     </p>

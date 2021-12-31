@@ -1,20 +1,28 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/watch.css" />
     <title>Document</title>
-    <link rel="stylesheet" href="/stylesheets/style.css" />
   </head>
   <body>
-    <ol>
+    <ol class="video-list">
       <% videos.forEach(video => { %>
-      <li>
-        <div>
+      <li class="video-item">
+        <div class="video-thumbnail">
           <img src="<%= getLocalThumbnail(video) %>" alt="<%= video.id %>" />
-          <p><%= formatDuration(video.duration) %></p>
+          <div class="video-duration">
+            <%= formatDuration(video.duration) %>
+          </div>
         </div>
-        <a href="<%= `/watch?v=${video.id}` %>"><%= video.title %></a>
-        <p><%= video.view_count.toLocaleString() %> views</p>
-        <p><%= formatDate(video.upload_date) %></p>
+        <div class="video-item-title">
+          <a href="<%= `/watch?v=${video.id}` %>"><%= video.title %></a>
+        </div>
+        <div class="video-item-info">
+          <%= video.view_count.toLocaleString() %> views &bull; <%=
+          formatDate(video.upload_date) %>
+        </div>
       </li>
       <% }); %>
     </ol>

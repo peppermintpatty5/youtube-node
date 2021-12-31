@@ -2,21 +2,27 @@ body {
   font-family: sans-serif;
 }
 
-main {
-  margin: auto;
-  width: 60%;
-}
-
 video {
   background-color: black;
-  width: 100%;
-}
-
-#view-counter {
-  text-align: right;
 }
 
 #video-description {
   font: inherit;
   white-space: pre-wrap;
+}
+
+/* mobile layout */
+@media screen and (max-width: 800px) {
+  body {
+    margin: 0;
+  }
+
+  video {
+    max-height: 75vh;
+    width: 100vw;
+  }
+
+  #video-info {
+    margin: 0.5em;
+  }
 }

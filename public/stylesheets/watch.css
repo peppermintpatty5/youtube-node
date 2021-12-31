@@ -2,53 +2,21 @@ body {
   font-family: sans-serif;
 }
 
-.video-list {
-  display: flex;
-  flex-wrap: wrap;
-  list-style-type: none;
-  padding: 0;
+main {
+  margin: auto;
+  width: 60%;
 }
 
-.video-item {
-  display: inline-block;
-  width: 14em;
-  margin-bottom: 1em;
-  margin-right: 0.25em;
-}
-
-.video-item-title > a {
-  color: inherit;
-  font-weight: bold;
-  text-decoration: none;
-}
-
-.video-item-info {
-  color: gray;
-  font-size: smaller;
-}
-
-.video-thumbnail {
-  position: relative;
-  margin-bottom: 0.5em;
-}
-
-.video-thumbnail > img {
-  display: block;
-  height: 100%;
+video {
+  background-color: black;
   width: 100%;
 }
 
-.video-duration {
-  background-color: black;
-  border-radius: 0.5em;
-  color: white;
-  font-size: smaller;
-  font-weight: bold;
-  margin: 0.25em;
-  opacity: 75%;
-  padding: 0 0.5em;
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: min-content;
+#view-counter {
+  text-align: right;
+}
+
+#video-description {
+  font: inherit;
+  white-space: pre-wrap;
 }

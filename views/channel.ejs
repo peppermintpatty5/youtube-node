@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/stylesheets/watch.css" />
-    <title>Document</title>
-  </head>
-  <body>
-    <ol class="video-list">
-      <% videos.forEach(video => { %>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/stylesheets/channel.css" />
+  <title>Document</title>
+</head>
+
+<body>
+  <ol class="video-list">
+    <% videos.forEach(video=> { %>
       <li class="video-item">
         <div class="video-thumbnail">
           <img src="<%= getLocalThumbnail(video) %>" alt="<%= video.id %>" />
@@ -17,14 +19,16 @@
           </div>
         </div>
         <div class="video-item-title">
-          <a href="<%= `/watch?v=${video.id}` %>"><%= video.title %></a>
+          <a href="<%= `/watch?v=${video.id}` %>">
+            <%= video.title %>
+          </a>
         </div>
         <div class="video-item-info">
-          <%= video.view_count.toLocaleString() %> views &bull; <%=
-          formatDate(video.upload_date) %>
+          <%= video.view_count.toLocaleString() %> views &bull; <%= formatDate(video.upload_date) %>
         </div>
       </li>
       <% }); %>
-    </ol>
-  </body>
+  </ol>
+</body>
+
 </html>

@@ -1,22 +1,32 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Document</title>
-    <link rel="stylesheet" href="/stylesheets/style.css" />
-  </head>
-  <body>
-    <ol>
-      <% videos.forEach(video => { %>
-      <li>
-        <div>
-          <img src="<%= getLocalThumbnail(video) %>" alt="<%= video.id %>" />
-          <p><%= formatDuration(video.duration) %></p>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/stylesheets/channel.css" />
+  <title>Document</title>
+</head>
+
+<body>
+  <ol id="video-list">
+    <%_ videos.forEach((video) => { _%>
+    <li>
+      <div class="video-thumbnail">
+        <img src="<%= getLocalThumbnail(video) %>" alt="<%= video.id %>" />
+        <div class="video-duration">
+          <%= formatDuration(video.duration) %>
         </div>
+      </div>
+      <p class="video-title">
         <a href="<%= `/watch?v=${video.id}` %>"><%= video.title %></a>
-        <p><%= video.view_count.toLocaleString() %> views</p>
-        <p><%= formatDate(video.upload_date) %></p>
-      </li>
-      <% }); %>
-    </ol>
-  </body>
+      </p>
+      <p class="video-info">
+        <%= video.view_count.toLocaleString() %> views &bull; <%= formatDate(video.upload_date) %>
+      </p>
+    </li>
+    <%_ }); _%>
+  </ol>
+</body>
+
 </html>

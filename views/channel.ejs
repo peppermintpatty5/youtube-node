@@ -9,23 +9,21 @@
 </head>
 
 <body>
-  <ol class="video-list">
+  <ol id="video-list">
     <%_ videos.forEach((video) => { _%>
-    <li class="video-item">
+    <li>
       <div class="video-thumbnail">
         <img src="<%= getLocalThumbnail(video) %>" alt="<%= video.id %>" />
         <div class="video-duration">
           <%= formatDuration(video.duration) %>
         </div>
       </div>
-      <div class="video-item-title">
-        <a href="<%= `/watch?v=${video.id}` %>">
-          <%= video.title %>
-        </a>
-      </div>
-      <div class="video-item-info">
+      <p class="video-title">
+        <a href="<%= `/watch?v=${video.id}` %>"><%= video.title %></a>
+      </p>
+      <p class="video-info">
         <%= video.view_count.toLocaleString() %> views &bull; <%= formatDate(video.upload_date) %>
-      </div>
+      </p>
     </li>
     <%_ }); _%>
   </ol>

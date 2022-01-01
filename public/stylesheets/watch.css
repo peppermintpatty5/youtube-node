@@ -19,7 +19,7 @@ video {
 
   video {
     max-height: 75vh;
-    width: 100vw;
+    width: 100%;
   }
 
   #video-info {

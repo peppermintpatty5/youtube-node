@@ -1,4 +1,3 @@
-const createError = require("http-errors");
 const express = require("express");
 const moment = require("moment");
 
@@ -29,9 +28,6 @@ router.get("/:channel_id", (req, res, next) => {
             return `/file/${video.id}.${ext}`;
           },
         });
-      })
-      .catch(() => {
-        next(createError(500));
       });
   } else {
     res.redirect("/");

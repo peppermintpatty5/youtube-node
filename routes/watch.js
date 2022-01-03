@@ -19,9 +19,6 @@ router.get("/", (req, res, next) => {
         } else {
           next(createError(404));
         }
-      })
-      .catch(() => {
-        next(createError(500));
       });
   } else {
     res.redirect("/");

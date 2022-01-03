@@ -1,3 +1,4 @@
+const createError = require("http-errors");
 const express = require("express");
 const moment = require("moment");
 
@@ -5,7 +6,7 @@ const Video = require("../models/video");
 
 const router = express.Router();
 
-router.get("/:channel_id", (req, res) => {
+router.get("/:channel_id", (req, res, next) => {
   if (req.params.channel_id) {
     Video.find({ channel_id: req.params.channel_id })
       .sort({ upload_date: "desc" })
@@ -30,7 +31,7 @@ router.get("/:channel_id", (req, res) => {
         });
       })
       .catch(() => {
-        res.sendStatus(500);
+        next(createError(500));
       });
   } else {
     res.redirect("/");

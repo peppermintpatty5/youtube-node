@@ -1,3 +1,4 @@
+const createError = require("http-errors");
 const express = require("express");
 const moment = require("moment");
 
@@ -5,8 +6,8 @@ const Video = require("../models/video");
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  if (req.query.v) {
+router.get("/", (req, res, next) => {
+  if (req.query.v)
     Video.findOne({ id: req.query.v })
       .exec()
       .then((video) => {
@@ -16,15 +17,10 @@ router.get("/", (req, res) => {
             formatDate: (date) => moment.utc(date).format("MMM D, YYYY"),
           });
         } else {
-          res.sendStatus(404);
+          next(createError(404));
         }
-      })
-      .catch(() => {
-        res.sendStatus(500);
       });
-  } else {
-    res.redirect("/");
-  }
+  else res.redirect("/");
 });
 
 module.exports = router;

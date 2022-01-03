@@ -5,7 +5,7 @@ const Video = require("../models/video");
 
 const router = express.Router();
 
-router.get("/:channel_id", (req, res, next) => {
+router.get("/:channel_id", (req, res) => {
   if (req.params.channel_id) {
     Video.find({ channel_id: req.params.channel_id })
       .sort({ upload_date: "desc" })

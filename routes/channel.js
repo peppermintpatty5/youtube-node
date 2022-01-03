@@ -6,7 +6,7 @@ const Video = require("../models/video");
 const router = express.Router();
 
 router.get("/:channel_id", (req, res) => {
-  if (req.params.channel_id) {
+  if (req.params.channel_id)
     Video.find({ channel_id: req.params.channel_id })
       .sort({ upload_date: "desc" })
       .exec()
@@ -29,9 +29,7 @@ router.get("/:channel_id", (req, res) => {
           },
         });
       });
-  } else {
-    res.redirect("/");
-  }
+  else res.redirect("/");
 });
 
 module.exports = router;

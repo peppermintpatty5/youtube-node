@@ -7,7 +7,7 @@ const Video = require("../models/video");
 const router = express.Router();
 
 router.get("/", (req, res, next) => {
-  if (req.query.v) {
+  if (req.query.v)
     Video.findOne({ id: req.query.v })
       .exec()
       .then((video) => {
@@ -20,9 +20,7 @@ router.get("/", (req, res, next) => {
           next(createError(404));
         }
       });
-  } else {
-    res.redirect("/");
-  }
+  else res.redirect("/");
 });
 
 module.exports = router;

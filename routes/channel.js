@@ -1,15 +1,18 @@
 const express = require("express");
 const moment = require("moment");
 
-const Video = require("../models/video");
+const { sequelize } = require("../models");
 
 const router = express.Router();
 
 router.get("/:channel_id", (req, res) => {
   if (req.params.channel_id)
-    Video.find({ channel_id: req.params.channel_id })
-      .sort({ upload_date: "desc" })
-      .exec()
+    sequelize
+      .model("video")
+      .findAll({
+        where: { channel_id: req.params.channel_id },
+        order: [["upload_date", "ASC"]],
+      })
       .then((videos) => {
         res.render("channel", {
           videos,

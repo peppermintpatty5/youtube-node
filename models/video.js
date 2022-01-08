@@ -1,24 +1,14 @@
-const mongoose = require("mongoose");
+const { DataTypes } = require("sequelize");
 
-const { Schema } = mongoose;
-
-const VideoSchema = new Schema({
-  id: {
-    type: String,
-    index: true,
-    unique: true,
-    required: true,
-    minlength: 11,
-    maxlength: 11,
-  },
-  title: { type: String, maxlength: 100 },
-  description: { type: String, maxlength: 5000 },
-  upload_date: { type: Date },
-  channel_id: { type: String, minlength: 24, maxlength: 24 },
-  duration: { type: Number, get: Math.round, set: Math.round, min: 0 },
-  view_count: { type: Number, get: Math.round, set: Math.round, min: 0 },
-  thumbnail: { type: String, maxlength: 255 },
-  ext: { type: String, maxlength: 4 },
-});
-
-module.exports = mongoose.model("Video", VideoSchema);
+module.exports = (sequelize) =>
+  sequelize.define("video", {
+    id: { type: DataTypes.CHAR(11), primaryKey: true },
+    title: `${DataTypes.STRING(100)} CHARACTER SET utf8mb4`,
+    description: `${DataTypes.STRING(5000)} CHARACTER SET utf8mb4`,
+    upload_date: DataTypes.DATE,
+    channel_id: DataTypes.CHAR(24),
+    duration: DataTypes.INTEGER,
+    view_count: DataTypes.INTEGER,
+    thumbnail: DataTypes.STRING(255),
+    ext: DataTypes.CHAR(4),
+  });

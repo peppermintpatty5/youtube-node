@@ -2,14 +2,15 @@ const createError = require("http-errors");
 const express = require("express");
 const moment = require("moment");
 
-const Video = require("../models/video");
+const { sequelize } = require("../models");
 
 const router = express.Router();
 
 router.get("/", (req, res, next) => {
   if (req.query.v)
-    Video.findOne({ id: req.query.v })
-      .exec()
+    sequelize
+      .model("video")
+      .findByPk(req.query.v)
       .then((video) => {
         if (video !== null) {
           res.render("watch", {

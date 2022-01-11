@@ -10,10 +10,10 @@ A simple website for hosting your archived YouTube videos. This project is a rew
     npm install
     ```
 
-2. Create a file `.env` which contains your MongoDB connection string URI.
+2. Create a file `.env` which contains your SQL database URI.
 
     ```sh
-    MONGO_URI="mongodb://localhost:27017/youtube"
+    DB_URI="mysql://username:password@localhost/youtube"
     ```
 
 3. Create a symbolic link to your video library.

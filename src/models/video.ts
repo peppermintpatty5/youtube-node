@@ -1,6 +1,6 @@
-const { DataTypes } = require("sequelize");
+import { DataTypes, Sequelize } from "sequelize";
 
-module.exports = (sequelize) =>
+export default (sequelize: Sequelize) =>
   sequelize.define("video", {
     id: { type: DataTypes.CHAR(11), primaryKey: true },
     title: `${DataTypes.STRING(100)} CHARACTER SET utf8mb4`,

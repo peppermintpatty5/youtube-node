@@ -1,7 +1,7 @@
-const dotenv = require("dotenv");
-const { Sequelize } = require("sequelize");
+import dotenv from "dotenv";
+import { Sequelize } from "sequelize";
 
-const video = require("./video");
+import video from "./video";
 
 // connect to database
 dotenv.config();
@@ -17,4 +17,4 @@ const sequelize = new Sequelize(process.env.DB_URI, {
 const modelDefines = [video];
 modelDefines.forEach((model) => model(sequelize));
 
-module.exports = { sequelize };
+export default sequelize;

@@ -1,7 +1,7 @@
-const express = require("express");
-const moment = require("moment");
+import express from "express";
+import moment from "moment";
 
-const { sequelize } = require("../models");
+import sequelize from "../models";
 
 const router = express.Router();
 
@@ -35,4 +35,4 @@ router.get("/:channel_id", (req, res) => {
   else res.redirect("/");
 });
 
-module.exports = router;
+export default router;

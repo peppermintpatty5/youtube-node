@@ -1,8 +1,8 @@
-const createError = require("http-errors");
-const express = require("express");
-const moment = require("moment");
+import createError from "http-errors";
+import express from "express";
+import moment from "moment";
 
-const { sequelize } = require("../models");
+import sequelize from "../models";
 
 const router = express.Router();
 
@@ -24,4 +24,4 @@ router.get("/", (req, res, next) => {
   else res.redirect("/");
 });
 
-module.exports = router;
+export default router;

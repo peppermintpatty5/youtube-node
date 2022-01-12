@@ -1,13 +1,13 @@
-const cookieParser = require("cookie-parser");
-const createError = require("http-errors");
-const express = require("express");
-const logger = require("morgan");
-const path = require("path");
+import cookieParser from "cookie-parser";
+import createError from "http-errors";
+import express from "express";
+import logger from "morgan";
+import path from "path";
 
-const channelRouter = require("./routes/channel");
-const fileRouter = require("./routes/file");
-const indexRouter = require("./routes/index");
-const watchRouter = require("./routes/watch");
+import channelRouter from "./routes/channel";
+import fileRouter from "./routes/file";
+import indexRouter from "./routes/index";
+import watchRouter from "./routes/watch";
 
 const app = express();
 
@@ -44,4 +44,4 @@ app.use((err, req, res, next) => {
   res.render("error");
 });
 
-module.exports = app;
+export default app;

@@ -16,8 +16,8 @@ router.get("/:channel_id", (req, res) => {
       .then((videos) => {
         res.render("channel", {
           videos,
-          formatDate: (date) => moment.utc(date).format("MMM D, YYYY"),
-          formatDuration: (seconds) => {
+          formatDate: (date: string) => moment.utc(date).format("MMM D, YYYY"),
+          formatDuration: (seconds: number) => {
             const s = seconds % 60;
             const m = Math.floor(seconds / 60) % 60;
             const h = Math.floor(seconds / 3600);

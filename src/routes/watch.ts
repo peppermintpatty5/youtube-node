@@ -7,7 +7,7 @@ import sequelize from "../models";
 const router = express.Router();
 
 router.get("/", (req, res, next) => {
-  if (req.query.v)
+  if (typeof req.query.v === "string")
     sequelize
       .model("video")
       .findByPk(req.query.v)
@@ -15,7 +15,8 @@ router.get("/", (req, res, next) => {
         if (video !== null) {
           res.render("watch", {
             video,
-            formatDate: (date) => moment.utc(date).format("MMM D, YYYY"),
+            formatDate: (date: string) =>
+              moment.utc(date).format("MMM D, YYYY"),
           });
         } else {
           next(createError(404));

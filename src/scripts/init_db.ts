@@ -1,10 +1,10 @@
 #!/usr/bin/env node
-
 /* eslint-disable no-console */
-const fs = require("fs");
-const path = require("path");
 
-const { sequelize } = require("../models");
+import fs from "fs";
+import path from "path";
+
+import sequelize from "../models";
 
 /**
  * Add hyphens to a date string such that `YYYYMMDD` becomes `YYYY-MM-DD`. This

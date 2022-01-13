@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 /* eslint-disable no-console */
 
 import fs from "fs";
@@ -17,7 +16,7 @@ function hyphenDate(date: string) {
 const dir = process.argv[2];
 
 sequelize
-  .sync({ logging: false })
+  .sync()
   .then(() => fs.promises.readdir(dir))
   .then((files) => files.filter((file) => file.endsWith(".info.json")))
   .then((files) =>
@@ -27,13 +26,10 @@ sequelize
           .readFile(path.join(dir, file), { encoding: "utf-8" })
           .then((text) => JSON.parse(text))
           .then((record) =>
-            Video.create(
-              {
-                ...record,
-                upload_date: hyphenDate(record.upload_date),
-              },
-              { logging: false }
-            )
+            Video.create({
+              ...record,
+              upload_date: hyphenDate(record.upload_date),
+            })
           )
       )
     )

@@ -12,6 +12,7 @@ const sequelize = new Sequelize(process.env.DB_URI, {
     charset: "ascii",
     collate: "ascii_bin",
   },
+  logging: false,
 });
 
 // initialize model definitions

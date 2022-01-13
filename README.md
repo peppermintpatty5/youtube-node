@@ -4,10 +4,11 @@ A simple website for hosting your archived YouTube videos. This project is a rew
 
 ## Installation
 
-1. Install the required Node.js packages.
+1. Install the required Node.js packages and build the project.
 
     ```sh
     npm install
+    npm run build
     ```
 
 2. Create a file `.env` which contains your SQL database URI.
@@ -22,10 +23,10 @@ A simple website for hosting your archived YouTube videos. This project is a rew
     ln --symbolic /path/to/video/library videos
     ```
 
-4. Run the script [`populate_db.js`](scripts/populate_db.js) to populate the database.
+4. Run the database initialization script.
 
-   ```sh
-    ./scripts/populate_db.js videos
+    ```sh
+    npm run init_db -- videos
     ```
 
 5. Start the application.

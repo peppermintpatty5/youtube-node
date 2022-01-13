@@ -3,6 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "build": "npx tsc",
+    "init_db": "node ./dist/scripts/init_db.js",
     "start": "node ./dist/bin/www.js"
   },
   "dependencies": {

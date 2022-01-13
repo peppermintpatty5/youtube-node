@@ -1,5 +1,5 @@
-const createError = require("http-errors");
-const express = require("express");
+import createError from "http-errors";
+import express from "express";
 
 const router = express.Router();
 
@@ -11,4 +11,4 @@ router.get("/:file", (req, res, next) => {
   else next();
 });
 
-module.exports = router;
+export default router;

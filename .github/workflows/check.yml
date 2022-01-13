@@ -9,7 +9,8 @@ jobs:
         with:
           node-version: "16"
       - run: npm ci
-      - run: npm run build
+      - name: Build
+        run: npm run build
       - name: ESLint
         run: npx --no-install eslint .
       - name: Prettier

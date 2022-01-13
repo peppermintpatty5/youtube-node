@@ -4,16 +4,13 @@
 import fs from "fs";
 import path from "path";
 
-import sequelize from "../models";
+import sequelize, { Video } from "../models";
 
 /**
  * Add hyphens to a date string such that `YYYYMMDD` becomes `YYYY-MM-DD`. This
  * function is idempotent; repeated applications have no effect.
- *
- * @param {string} date
- * @returns {string} the date with hyphens
  */
-function hyphenDate(date) {
+function hyphenDate(date: string) {
   return date.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3");
 }
 
@@ -30,7 +27,7 @@ sequelize
           .readFile(path.join(dir, file), { encoding: "utf-8" })
           .then((text) => JSON.parse(text))
           .then((record) =>
-            sequelize.model("video").create(
+            Video.create(
               {
                 ...record,
                 upload_date: hyphenDate(record.upload_date),

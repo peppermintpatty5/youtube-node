@@ -9,7 +9,7 @@ import app from "../app";
 /**
  * Normalize a port into a number, string, or false.
  */
-function normalizePort(val) {
+function normalizePort(val: string) {
   const port = parseInt(val, 10);
 
   if (Number.isNaN(port)) {
@@ -33,7 +33,7 @@ app.set("port", port);
 const server = http.createServer(app);
 
 server.listen(port);
-server.on("error", (error) => {
+server.on("error", (error: NodeJS.ErrnoException) => {
   if (error.syscall !== "listen") {
     throw error;
   }
@@ -56,6 +56,9 @@ server.on("error", (error) => {
 });
 server.on("listening", () => {
   const addr = server.address();
-  const bind = typeof addr === "string" ? `pipe ${addr}` : `port ${addr.port}`;
+  const bind =
+    addr === null || typeof addr === "string"
+      ? `pipe ${addr}`
+      : `port ${addr.port}`;
   debug("youtube-node:server")(`Listening on ${bind}`);
 });

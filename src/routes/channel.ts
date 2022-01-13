@@ -1,37 +1,37 @@
 import express from "express";
 import moment from "moment";
 
-import sequelize from "../models";
+import { Video } from "../models";
 
 const router = express.Router();
 
 router.get("/:channel_id", (req, res) => {
   if (req.params.channel_id)
-    sequelize
-      .model("video")
-      .findAll({
-        where: { channel_id: req.params.channel_id },
-        order: [["upload_date", "ASC"]],
-      })
-      .then((videos) => {
-        res.render("channel", {
-          videos,
-          formatDate: (date: string) => moment.utc(date).format("MMM D, YYYY"),
-          formatDuration: (seconds: number) => {
-            const s = seconds % 60;
-            const m = Math.floor(seconds / 60) % 60;
-            const h = Math.floor(seconds / 3600);
-            const ss = s >= 10 ? `${s}` : `0${s}`;
-            const mm = m >= 10 ? `${m}` : `0${m}`;
+    Video.findAll({
+      where: { channel_id: req.params.channel_id },
+      order: [["upload_date", "ASC"]],
+    }).then((videos) => {
+      res.render("channel", {
+        videos,
+        formatDate: (date: string) => moment.utc(date).format("MMM D, YYYY"),
+        formatDuration: (seconds: number) => {
+          const s = seconds % 60;
+          const m = Math.floor(seconds / 60) % 60;
+          const h = Math.floor(seconds / 3600);
+          const ss = s >= 10 ? `${s}` : `0${s}`;
+          const mm = m >= 10 ? `${m}` : `0${m}`;
 
-            return h > 0 ? `${h}:${mm}:${ss}` : `${m}:${ss}`;
-          },
-          getLocalThumbnail: (video) => {
-            const ext = new URL(video.thumbnail).pathname.match(/\.(.*)$/)[1];
+          return h > 0 ? `${h}:${mm}:${ss}` : `${m}:${ss}`;
+        },
+        getLocalThumbnail: (video: Video) => {
+          if (video.thumbnail) {
+            const ext = new URL(video.thumbnail).pathname.split(".").pop();
             return `/file/${video.id}.${ext}`;
-          },
-        });
+          }
+          return "";
+        },
       });
+    });
   else res.redirect("/");
 });
 

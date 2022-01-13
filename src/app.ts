@@ -1,6 +1,6 @@
 import cookieParser from "cookie-parser";
 import createError from "http-errors";
-import express from "express";
+import express, { ErrorRequestHandler } from "express";
 import logger from "morgan";
 import path from "path";
 
@@ -34,7 +34,7 @@ app.use((req, res, next) => {
 
 // error handler
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-app.use((err, req, res, next) => {
+app.use(((err, req, res, next) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get("env") === "development" ? err : {};
@@ -42,6 +42,6 @@ app.use((err, req, res, next) => {
   // render the error page
   res.status(err.status || 500);
   res.render("error");
-});
+}) as ErrorRequestHandler);
 
 export default app;

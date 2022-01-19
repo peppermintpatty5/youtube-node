@@ -1,6 +1,7 @@
 import dotenv from "dotenv";
 import { Sequelize } from "sequelize";
 
+import { Channel, channelInit } from "./channel";
 import { Video, videoInit } from "./video";
 
 // connect to database
@@ -16,7 +17,8 @@ const sequelize = new Sequelize(process.env.DB_URI, {
 });
 
 // initialize model definitions
+channelInit(sequelize);
 videoInit(sequelize);
 
 export default sequelize;
-export { Video };
+export { Channel, Video };

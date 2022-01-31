@@ -5,8 +5,12 @@ import { Video, videoInit } from "./video";
 
 // connect to database
 dotenv.config();
-if (process.env.DB_URI === undefined) throw Error("DB_URI is undefined");
-const sequelize = new Sequelize(process.env.DB_URI, {
+const sequelize = new Sequelize({
+  host: process.env.DB_HOST,
+  username: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE,
+
   dialect: "mysql",
   define: {
     charset: "ascii",

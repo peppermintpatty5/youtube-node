@@ -1,0 +1,22 @@
+services:
+  db:
+    image: mysql:latest
+    restart: unless-stopped
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=youtube
+  app:
+    depends_on:
+      - db
+    build: .
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    environment:
+      - DB_HOST=db
+      - DB_USERNAME=root
+      - DB_PASSWORD=password
+      - DB_DATABASE=youtube
+      - NODE_ENV=production
+    volumes:
+      - ./videos:/usr/src/app/videos:ro

@@ -37,3 +37,15 @@ A simple website for hosting your archived YouTube videos. This project is a rew
     ```sh
     npm start
     ```
+
+## Docker
+
+```sh
+docker-compose up
+```
+
+Like before, the database must be initialized manually.
+
+```sh
+docker-compose exec app npm run init_db -- videos
+```

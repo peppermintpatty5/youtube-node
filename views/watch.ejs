@@ -9,20 +9,18 @@
 </head>
 
 <body>
-  <main>
-    <video controls>
-      <source src="<%= `/file/${video.id}.${video.ext}` %>" />
-      Sorry, your browser doesn't support embedded videos.
-    </video>
-    <div id="video-info">
-      <h2><%= video.title %></h2>
-      <p class="info-text">
-        <%= video.view_count.toLocaleString() %> views &bull; <%= formatDate(video.upload_date) %>
-      </p>
-      <h3>Description</h3>
-      <pre id="video-description"><%= video.description %></pre>
-    </div>
-  </main>
+  <video controls>
+    <source src="<%= `/file/${video.id}.${video.ext}` %>" />
+    Sorry, your browser doesn't support embedded videos.
+  </video>
+  <div id="video-info">
+    <h2><%= video.title %></h2>
+    <p class="info-text">
+      <%= video.view_count %> views &bull; <%= video.upload_date %>
+    </p>
+    <h3>Description</h3>
+    <pre id="video-description"><%= video.description %></pre>
+  </div>
 </body>
 
 </html>

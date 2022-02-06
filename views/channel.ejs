@@ -13,16 +13,14 @@
     <%_ videos.forEach((video) => { _%>
     <li>
       <div class="video-thumbnail">
-        <img src="<%= getLocalThumbnail(video) %>" alt="<%= video.id %>" />
-        <div class="video-duration">
-          <%= formatDuration(video.duration) %>
-        </div>
+        <img src="<%= video.thumbnail %>" alt="<%= video.id %>" />
+        <div class="video-duration"><%= video.duration %></div>
       </div>
       <p class="video-title">
-        <a href="<%= `/watch?v=${video.id}` %>"><%= video.title %></a>
+        <a href="/watch?v=<%= video.id %>"><%= video.title %></a>
       </p>
       <p class="video-info">
-        <%= video.view_count.toLocaleString() %> views &bull; <%= formatDate(video.upload_date) %>
+        <%= video.view_count %> views &bull; <%= video.upload_date %>
       </p>
     </li>
     <%_ }); _%>

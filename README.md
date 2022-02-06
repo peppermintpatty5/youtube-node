@@ -11,10 +11,13 @@ A simple website for hosting your archived YouTube videos. This project is a rew
     npm run build
     ```
 
-2. Create a file `.env` which contains your SQL database URI.
+2. Create a file `.env` which contains your MySQL database credentials.
 
     ```sh
-    DB_URI="mysql://username:password@localhost/youtube"
+    DB_HOST="localhost"
+    DB_USERNAME="username"
+    DB_PASSWORD="password"
+    DB_DATABASE="youtube"
     ```
 
 3. Create a symbolic link to your video library.
@@ -34,3 +37,15 @@ A simple website for hosting your archived YouTube videos. This project is a rew
     ```sh
     npm start
     ```
+
+## Docker
+
+```sh
+docker-compose up
+```
+
+Like before, the database must be initialized manually.
+
+```sh
+docker-compose exec app npm run init_db -- videos
+```

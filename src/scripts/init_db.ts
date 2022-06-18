@@ -2,8 +2,14 @@
 
 import fs from "fs";
 import path from "path";
+import util from "util";
 
 import sequelize, { Video } from "../models";
+
+type VideoInfo = {
+  upload_date: string;
+  _filename: string;
+};
 
 /**
  * Add hyphens to a date string such that `YYYYMMDD` becomes `YYYY-MM-DD`. This
@@ -13,32 +19,31 @@ function hyphenDate(date: string) {
   return date.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3");
 }
 
-const dir = process.argv[2];
-
 sequelize
   .sync()
-  .then(() => fs.promises.readdir(dir))
-  .then((files) => files.filter((file) => file.endsWith(".info.json")))
-  .then((files) =>
-    Promise.allSettled(
-      files.map((file) =>
-        fs.promises
-          .readFile(path.join(dir, file), { encoding: "utf-8" })
-          .then((text) => JSON.parse(text))
-          .then((record) =>
+  .then(
+    util.promisify(() => {
+      for (let i = 2; i < process.argv.length; i += 1) {
+        const dir = process.argv[i];
+
+        fs.readdirSync(dir).forEach((basename) => {
+          const file = path.join(dir, basename);
+
+          if (fs.lstatSync(file).isFile() && file.endsWith(".info.json")) {
+            console.log(file);
+            const info: VideoInfo = JSON.parse(
+              fs.readFileSync(file, { encoding: "utf-8" })
+            );
+
             Video.create({
-              ...record,
-              upload_date: hyphenDate(record.upload_date),
-            })
-          )
-      )
-    )
-  )
-  .then((results) =>
-    console.log(
-      "Added",
-      results.filter((result) => result.status === "fulfilled").length,
-      "videos"
-    )
+              ...info,
+              upload_date: hyphenDate(info.upload_date),
+              // eslint-disable-next-line no-underscore-dangle
+              path: path.join(dir, info._filename),
+            });
+          }
+        });
+      }
+    })
   )
   .finally(() => sequelize.close());

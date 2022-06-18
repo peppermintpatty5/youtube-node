@@ -18,6 +18,8 @@ export class Video extends Model {
   public thumbnail!: string | null;
 
   public ext!: string | null;
+
+  public path!: string;
 }
 
 export function videoInit(sequelize: Sequelize) {
@@ -32,6 +34,7 @@ export function videoInit(sequelize: Sequelize) {
       view_count: DataTypes.INTEGER,
       thumbnail: DataTypes.STRING(255),
       ext: DataTypes.CHAR(4),
+      path: DataTypes.STRING(4096),
     },
     { sequelize }
   );

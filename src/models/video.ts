@@ -17,8 +17,6 @@ export class Video extends Model {
 
   public thumbnail!: string | null;
 
-  public ext!: string | null;
-
   public path!: string;
 }
 

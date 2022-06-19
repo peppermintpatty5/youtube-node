@@ -17,7 +17,6 @@ router.get("/", (req, res, next) => {
         res.render("watch", {
           video: {
             description: video.description ?? "",
-            ext: video.ext ?? "",
             id: video.id,
             title: video.title ?? "",
             upload_date: formatDate(

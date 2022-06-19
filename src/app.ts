@@ -1,12 +1,12 @@
 import cookieParser from "cookie-parser";
-import createError from "http-errors";
 import express, { ErrorRequestHandler } from "express";
+import createError from "http-errors";
 import logger from "morgan";
 import path from "path";
 
 import channelRouter from "./routes/channel";
-import fileRouter from "./routes/file";
 import indexRouter from "./routes/index";
+import videoRouter from "./routes/video";
 import watchRouter from "./routes/watch";
 
 const app = express();
@@ -23,8 +23,7 @@ app.use(express.static(path.join(__dirname, "../public")));
 
 app.use("/", indexRouter);
 app.use("/channel", channelRouter);
-app.use("/file", fileRouter);
-app.use("/file", express.static(path.join(__dirname, "../videos")));
+app.use("/video", videoRouter);
 app.use("/watch", watchRouter);
 
 // catch 404 and forward to error handler

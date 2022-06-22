@@ -1,6 +1,7 @@
 import createError from "http-errors";
 import express from "express";
 import moment from "moment";
+import path from "path";
 
 import { Video } from "../models";
 
@@ -22,6 +23,7 @@ router.get("/", (req, res, next) => {
             upload_date: formatDate(
               video.upload_date ?? new Date("1970-01-01")
             ),
+            url: `/file/${path.posix.join(...video.path.split(path.sep))}`,
             view_count: (video.view_count ?? 0).toLocaleString(),
           },
         });

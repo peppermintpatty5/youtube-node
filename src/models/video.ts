@@ -31,7 +31,6 @@ export function videoInit(sequelize: Sequelize) {
       duration: DataTypes.INTEGER,
       view_count: DataTypes.INTEGER,
       thumbnail: DataTypes.STRING(255),
-      ext: DataTypes.CHAR(4),
       path: DataTypes.STRING(4096),
     },
     { sequelize }

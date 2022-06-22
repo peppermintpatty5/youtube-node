@@ -1,5 +1,6 @@
 import express from "express";
 import moment from "moment";
+import path from "path";
 
 import { Video } from "../models";
 
@@ -20,11 +21,14 @@ function formatDuration(seconds: number) {
 }
 
 function getLocalThumbnail(video: Video) {
-  if (video.thumbnail) {
-    const ext = new URL(video.thumbnail).pathname.split(".").pop();
-    return `/file/${video.id}.${ext}`;
+  if (video.thumbnail !== null) {
+    const thumbPath = new URL(video.thumbnail).pathname;
+    const thumbExt = path.posix.extname(thumbPath);
+    const { dir, name } = path.parse(video.path);
+
+    return `/file/${path.posix.join(...dir.split(path.sep), name + thumbExt)}`;
   }
-  return "";
+  return "/images/hqdefault.jpg";
 }
 
 function formatDate(date: Date) {
@@ -43,7 +47,7 @@ router.get("/:channel_id", (req, res) => {
           id: video.id,
           thumbnail: getLocalThumbnail(video),
           title: video.title ?? "",
-          upload_date: formatDate(video.upload_date ?? new Date("1970-01-01")),
+          upload_date: formatDate(video.upload_date ?? new Date(0)),
           view_count: (video.view_count ?? 0).toLocaleString(),
         })),
       })

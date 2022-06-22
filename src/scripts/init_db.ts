@@ -7,6 +7,8 @@ import util from "util";
 import sequelize, { Video } from "../models";
 
 type VideoInfo = {
+  id: string;
+  title: string;
   upload_date: string;
   _filename: string;
 };
@@ -24,13 +26,16 @@ sequelize
   .then(
     util.promisify(() => {
       for (let i = 2; i < process.argv.length; i += 1) {
-        const dir = process.argv[i];
+        const dir = path.resolve(process.argv[i]);
+        const relDir = path.relative(
+          path.join(__dirname, "..", "..", "videos"),
+          dir
+        );
 
         fs.readdirSync(dir).forEach((basename) => {
           const file = path.join(dir, basename);
 
           if (fs.lstatSync(file).isFile() && file.endsWith(".info.json")) {
-            console.log(file);
             const info: VideoInfo = JSON.parse(
               fs.readFileSync(file, { encoding: "utf-8" })
             );
@@ -39,8 +44,9 @@ sequelize
               ...info,
               upload_date: hyphenDate(info.upload_date),
               // eslint-disable-next-line no-underscore-dangle
-              path: path.join(dir, info._filename),
+              path: path.join(relDir, info._filename),
             });
+            console.log(info.id, info.title);
           }
         });
       }

@@ -6,7 +6,6 @@ import path from "path";
 
 import channelRouter from "./routes/channel";
 import indexRouter from "./routes/index";
-import videoRouter from "./routes/video";
 import watchRouter from "./routes/watch";
 
 const app = express();
@@ -23,8 +22,8 @@ app.use(express.static(path.join(__dirname, "../public")));
 
 app.use("/", indexRouter);
 app.use("/channel", channelRouter);
-app.use("/video", videoRouter);
 app.use("/watch", watchRouter);
+app.use("/file", express.static(path.join(__dirname, "../videos")));
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

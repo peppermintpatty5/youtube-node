@@ -3,6 +3,7 @@ import createError from "http-errors";
 import express, { ErrorRequestHandler } from "express";
 import logger from "morgan";
 import path from "path";
+import sassMiddleware from "node-sass-middleware";
 
 import channelRouter from "./routes/channel";
 import fileRouter from "./routes/file";
@@ -19,6 +20,12 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(sassMiddleware({
+  src: path.join(__dirname, '../public'),
+  dest: path.join(__dirname, '../public'),
+  indentedSyntax: true, // true = .sass and false = .scss
+  sourceMap: true
+}));
 app.use(express.static(path.join(__dirname, "../public")));
 
 app.use("/", indexRouter);

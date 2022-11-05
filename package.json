@@ -8,6 +8,7 @@
     "start": "node ./dist/bin/www.js"
   },
   "dependencies": {
+    "bootstrap": "^5.2.2",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "dotenv": "^10.0.0",

@@ -4,23 +4,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/stylesheets/channel.css" />
+  <link rel="stylesheet" href="/stylesheets/style.css" />
   <title>Document</title>
 </head>
 
 <body>
-  <ol id="video-list">
+  <ol class="list-unstyled">
     <%_ videos.forEach((video) => { _%>
     <li>
-      <div class="video-thumbnail">
+      <div>
         <img src="<%= video.thumbnail %>" alt="<%= video.id %>" />
-        <div class="video-duration"><%= video.duration %></div>
+        <div class="badge rounded-pill text-bg-dark"><%= video.duration %></div>
       </div>
-      <p class="video-title">
+      <p>
         <a href="/watch?v=<%= video.id %>"><%= video.title %></a>
       </p>
-      <p class="video-info">
-        <%= video.view_count %> views &bull; <%= video.upload_date %>
+      <p class="text-muted">
+        <small><%= video.view_count %> views &bull; <%= video.upload_date %></small>
       </p>
     </li>
     <%_ }); _%>

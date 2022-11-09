@@ -1,26 +1,24 @@
-import dotenv from "dotenv";
-import { Sequelize } from "sequelize";
+import type { Sequelize } from "sequelize";
+import Video from "./video";
+import Channel from "./channel";
 
-import { Video, videoInit } from "./video";
+export { Video, Channel };
 
-// connect to database
-dotenv.config();
-const sequelize = new Sequelize({
-  host: process.env.DB_HOST,
-  username: process.env.DB_USERNAME,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_DATABASE,
+export function initModels(sequelize: Sequelize) {
+  Video.initModel(sequelize);
+  Channel.initModel(sequelize);
 
-  dialect: "mysql",
-  define: {
-    charset: "ascii",
-    collate: "ascii_bin",
-  },
-  logging: false,
-});
+  Video.belongsTo(Channel, {
+    as: "channel",
+    foreignKey: "channel_id",
+  });
+  Channel.hasMany(Video, {
+    as: "videos",
+    foreignKey: "channel_id",
+  });
 
-// initialize model definitions
-videoInit(sequelize);
-
-export default sequelize;
-export { Video };
+  return {
+    Video,
+    Channel,
+  };
+}

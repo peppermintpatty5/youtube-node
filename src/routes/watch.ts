@@ -20,10 +20,8 @@ router.get("/", (req, res, next) => {
             ext: video.ext ?? "",
             id: video.id,
             title: video.title ?? "",
-            upload_date: formatDate(
-              video.upload_date ?? new Date("1970-01-01")
-            ),
-            view_count: (video.view_count ?? 0).toLocaleString(),
+            upload_date: formatDate(new Date("1970-01-01")), // TODO: use uploadDate
+            view_count: (video.viewCount ?? 0).toLocaleString(),
           },
         });
       else next(createError(404));

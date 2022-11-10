@@ -5,10 +5,14 @@ import logger from "morgan";
 import path from "path";
 import sassMiddleware from "node-sass-middleware";
 
+import db from "./db";
+import { initModels } from "./models";
 import channelRouter from "./routes/channel";
 import fileRouter from "./routes/file";
 import indexRouter from "./routes/index";
 import watchRouter from "./routes/watch";
+
+initModels(db);
 
 const app = express();
 

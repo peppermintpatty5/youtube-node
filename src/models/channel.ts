@@ -27,7 +27,7 @@ export default class Channel extends Model<
   InferAttributes<Channel, { omit: ChannelAssociations }>,
   InferCreationAttributes<Channel, { omit: ChannelAssociations }>
 > {
-  declare id: CreationOptional<string>;
+  declare id: string;
   declare name: string | null;
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;

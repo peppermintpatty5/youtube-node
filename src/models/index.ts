@@ -8,14 +8,8 @@ export function initModels(sequelize: Sequelize) {
   Video.initModel(sequelize);
   Channel.initModel(sequelize);
 
-  Video.belongsTo(Channel, {
-    as: "channel",
-    foreignKey: "channel_id",
-  });
-  Channel.hasMany(Video, {
-    as: "videos",
-    foreignKey: "channel_id",
-  });
+  Video.belongsTo(Channel);
+  Channel.hasMany(Video);
 
   return {
     Video,

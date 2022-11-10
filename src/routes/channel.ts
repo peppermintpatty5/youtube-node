@@ -1,7 +1,8 @@
 import express from "express";
+import createError from "http-errors";
 import moment from "moment";
 
-import { Video } from "../models";
+import { Channel, Video } from "../models";
 
 const router = express.Router();
 
@@ -31,23 +32,25 @@ function formatDate(date: Date) {
   return moment.utc(date).format("MMM D, YYYY");
 }
 
-router.get("/:channel_id", (req, res) => {
+router.get("/:channel_id", (req, res, next) => {
   if (req.params.channel_id)
-    Video.findAll({
-      where: { channel_id: req.params.channel_id },
-      order: [["upload_date", "ASC"]],
-    }).then((videos) =>
-      res.render("channel", {
-        videos: videos.map((video) => ({
-          duration: formatDuration(video.duration ?? 0),
-          id: video.id,
-          thumbnail: getLocalThumbnail(video),
-          title: video.title ?? "",
-          upload_date: formatDate(video.upload_date ?? new Date("1970-01-01")),
-          view_count: (video.view_count ?? 0).toLocaleString(),
-        })),
-      })
-    );
+    Channel.findByPk(req.params.channel_id).then((channel) => {
+      if (channel !== null)
+        channel.getVideos().then((videos) => {
+          videos.forEach((video) => console.log(video));
+          res.render("channel", {
+            videos: videos.map((video) => ({
+              duration: formatDuration(video.duration ?? 0),
+              id: video.id,
+              thumbnail: getLocalThumbnail(video),
+              title: video.title ?? "",
+              upload_date: formatDate(new Date("1970-01-01")), // TODO: use uploadDate
+              view_count: (video.viewCount ?? 0).toLocaleString(),
+            })),
+          });
+        });
+      else next(createError(404));
+    });
   else res.redirect("/");
 });
 

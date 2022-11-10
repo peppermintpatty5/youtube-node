@@ -21,7 +21,6 @@ export default class Video extends Model<
   InferCreationAttributes<Video, { omit: VideoAssociations }>
 > {
   declare id: string;
-  declare channelId: string | null;
   declare title: string | null;
   declare description: string | null;
   declare uploadDate: string | null;
@@ -48,9 +47,6 @@ export default class Video extends Model<
         id: {
           type: DataTypes.STRING(11),
           primaryKey: true,
-        },
-        channelId: {
-          type: DataTypes.STRING(24),
         },
         title: {
           type: DataTypes.STRING(100),

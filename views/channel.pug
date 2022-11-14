@@ -6,14 +6,14 @@ html(lang="en")
   body
     main.container
       h1 Placeholder Title
-      ol.list-unstyled.row.g-1.row-cols-xl-6.row-cols-lg-4.row-cols-md-3.row-cols.sm-2.row-cols-1
+      ol.list-unstyled.row.g-1.row-cols-xl-6.row-cols-lg-4.row-cols-md-3.row-cols-sm-2.row-cols-1
         each video in videos
           li.col
             .card.border-0
-            img.card-img.rounded-0(src=video.thumbnail, alt=video.id)
-            .card-body.p-1.mb-3
-              p.card-title.fw-semibold.
-                #[span.badge.rounded-pill.text-bg-dark= video.duration]
-                #[a.link-dark.text-decoration-none(href=`/watch?v=${video.id}`)= video.title]
-              p.card-subtitle.text-muted
-                small #{ video.view_count } views &bull; #{ video.upload_date }
+              img.card-img.rounded-0(src=video.thumbnail, alt=video.id)
+              .card-body.p-1.mb-3
+                p.card-title.fw-semibold.
+                  #[span.badge.rounded-pill.text-bg-dark= video.duration]
+                  #[a.link-dark.text-decoration-none(href=`/watch?v=${video.id}`)= video.title]
+                p.card-subtitle.text-muted
+                  small #{ video.view_count } views &bull; #{ video.upload_date }

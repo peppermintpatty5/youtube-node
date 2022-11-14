@@ -1,14 +1,15 @@
-doctype html
-html(lang="en")
-  head
-    title= video.title
-    link(rel="stylesheet", href="/stylesheets/style.css")
-  body
-    video(controls).
-      #[source(src=`/file/${video.id}.${video.ext}`)]
-      Sorry, your browser doesn't support embedded videos.
-    div
-      h2= video.title
-      p #{ video.view_count } views &bull; #{ video.upload_date }
-      h3 Description
-      pre= video.description
+extends shared/layout
+
+block append head
+  title= video.title
+  link(rel="stylesheet", href="/stylesheets/style.css")
+
+block main
+  video(controls).
+    #[source(src=`/file/${video.id}.${video.ext}`)]
+    Sorry, your browser doesn't support embedded videos.
+  div
+    h2= video.title
+    p #{ video.view_count } views &bull; #{ video.upload_date }
+    h3 Description
+    pre= video.description

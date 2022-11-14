@@ -1,19 +1,20 @@
-doctype html
-html(lang="en")
-  head
-    title= channel.name
-    link(rel="stylesheet", href="/stylesheets/style.css")
-  body
-    main.container
-      h1= channel.name
-      ol.list-unstyled.row.g-1.row-cols-xl-6.row-cols-lg-4.row-cols-md-3.row-cols-sm-2.row-cols-1
-        each video in videos
-          li.col
-            .card.border-0
-              img.card-img.rounded-0(src=video.thumbnail, alt=video.id)
-              .card-body.p-1.mb-3
-                p.card-title.fw-semibold.
-                  #[span.badge.rounded-pill.text-bg-dark= video.duration]
-                  #[a.link-dark.text-decoration-none(href=`/watch?v=${video.id}`)= video.title]
-                p.card-subtitle.text-muted
-                  small #{ video.view_count } views &bull; #{ video.upload_date }
+extends shared/layout
+
+block append head
+  title= channel.name
+  link(rel="stylesheet", href="/stylesheets/style.css")
+
+block main
+  main.container
+    h1= channel.name
+    ol.list-unstyled.row.g-1.row-cols-xl-6.row-cols-lg-4.row-cols-md-3.row-cols-sm-2.row-cols-1
+      each video in videos
+        li.col
+          .card.border-0
+            img.card-img.rounded-0(src=video.thumbnail, alt=video.id)
+            .card-body.p-1.mb-3
+              p.card-title.fw-semibold.
+                #[span.badge.rounded-pill.text-bg-dark= video.duration]
+                #[a.link-dark.text-decoration-none(href=`/watch?v=${video.id}`)= video.title]
+              p.card-subtitle.text-muted
+                small #{ video.view_count } views &bull; #{ video.upload_date }

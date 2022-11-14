@@ -37,7 +37,6 @@ router.get("/:channel_id", (req, res, next) => {
     Channel.findByPk(req.params.channel_id).then((channel) => {
       if (channel !== null)
         channel.getVideos().then((videos) => {
-          videos.forEach((video) => console.log(video));
           res.render("channel", {
             videos: videos.map((video) => ({
               duration: formatDuration(video.duration ?? 0),

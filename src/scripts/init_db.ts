@@ -24,14 +24,21 @@ type VideoInfo = {
 };
 
 /**
- * Add hyphens to a date string such that `YYYYMMDD` becomes `YYYY-MM-DD`. This
- * function is idempotent; repeated applications have no effect.
+ * Add hyphens to a date string such that `YYYYMMDD` becomes `YYYY-MM-DD`.
+ *
+ * This function is idempotent, i.e.
+ * ```
+ * hyphenDate(x) === hyphenDate(hyphenDate(x))
+ * ```
  */
-function hyphenDate(date: string) {
-  return date.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3");
+function hyphenDate(date?: string) {
+  return date?.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3");
 }
 
-function putVideoIntoDatabase(v: VideoInfo) {
+/**
+ * Inserts the video into the database.
+ */
+function insertIntoDatabase(v: VideoInfo) {
   return Channel.findOrCreate({ where: { id: v.channel_id } })
     .then(([channel]) => channel.update({ name: v.uploader }))
     .then((channel) =>
@@ -39,7 +46,7 @@ function putVideoIntoDatabase(v: VideoInfo) {
         id: v.id,
         title: v.title,
         description: v.description,
-        uploadDate: v.upload_date,
+        uploadDate: hyphenDate(v.upload_date),
         duration: v.duration,
         viewCount: v.view_count,
         thumbnail: v.thumbnail,
@@ -64,7 +71,7 @@ db.sync({ force: true })
               fs.promises
                 .readFile(path.join(dir, file), { encoding: "utf-8" })
                 .then((text) => JSON.parse(text) as VideoInfo)
-                .then((v) => putVideoIntoDatabase(v))
+                .then((vInfo) => insertIntoDatabase(vInfo))
                 .then((video) => console.log(video.title))
             )
         )

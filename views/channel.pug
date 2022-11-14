@@ -1,11 +1,11 @@
 doctype html
 html(lang="en")
   head
-    title Document
+    title= channel.name
     link(rel="stylesheet", href="/stylesheets/style.css")
   body
     main.container
-      h1 Placeholder Title
+      h1= channel.name
       ol.list-unstyled.row.g-1.row-cols-xl-6.row-cols-lg-4.row-cols-md-3.row-cols-sm-2.row-cols-1
         each video in videos
           li.col

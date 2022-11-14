@@ -38,6 +38,9 @@ router.get("/:channel_id", (req, res, next) => {
       if (channel !== null)
         channel.getVideos({ order: [["uploadDate", "ASC"]] }).then((videos) => {
           res.render("channel", {
+            channel: {
+              name: channel.name ?? "",
+            },
             videos: videos.map((video) => ({
               duration: formatDuration(video.duration ?? 0),
               id: video.id,

@@ -6,7 +6,7 @@ import { Video } from "../models";
 
 const router = express.Router();
 
-function formatDate(date: Date) {
+function formatDate(date: string) {
   return moment.utc(date).format("MMM D, YYYY");
 }
 
@@ -20,7 +20,7 @@ router.get("/", (req, res, next) => {
             ext: video.ext ?? "",
             id: video.id,
             title: video.title ?? "",
-            upload_date: formatDate(new Date("1970-01-01")), // TODO: use uploadDate
+            upload_date: formatDate(video.uploadDate ?? "1970-01-01"),
             view_count: (video.viewCount ?? 0).toLocaleString(),
           },
         });

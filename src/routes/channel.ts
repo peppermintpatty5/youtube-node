@@ -28,7 +28,7 @@ function getLocalThumbnail(video: Video) {
   return "";
 }
 
-function formatDate(date: Date) {
+function formatDate(date: string) {
   return moment.utc(date).format("MMM D, YYYY");
 }
 
@@ -36,14 +36,14 @@ router.get("/:channel_id", (req, res, next) => {
   if (req.params.channel_id)
     Channel.findByPk(req.params.channel_id).then((channel) => {
       if (channel !== null)
-        channel.getVideos().then((videos) => {
+        channel.getVideos({ order: [["uploadDate", "ASC"]] }).then((videos) => {
           res.render("channel", {
             videos: videos.map((video) => ({
               duration: formatDuration(video.duration ?? 0),
               id: video.id,
               thumbnail: getLocalThumbnail(video),
               title: video.title ?? "",
-              upload_date: formatDate(new Date("1970-01-01")), // TODO: use uploadDate
+              upload_date: formatDate(video.uploadDate ?? "1970-01-01"),
               view_count: (video.viewCount ?? 0).toLocaleString(),
             })),
           });

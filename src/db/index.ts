@@ -12,7 +12,7 @@ const db: Sequelize = new Sequelize({
   define: {
     underscored: true,
   },
-  logging: true, // TODO: remove
+  logging: false,
 });
 
 export default db;

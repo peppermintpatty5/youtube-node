@@ -1,38 +1,86 @@
-import { DataTypes, Model, Sequelize } from "sequelize";
+/* eslint-disable @typescript-eslint/lines-between-class-members */
+import {
+  Association,
+  BelongsToGetAssociationMixin,
+  BelongsToSetAssociationMixin,
+  BelongsToCreateAssociationMixin,
+  CreationOptional,
+  DataTypes,
+  InferCreationAttributes,
+  InferAttributes,
+  Model,
+  NonAttribute,
+  Sequelize,
+} from "sequelize";
+import type Channel from "./channel";
 
-export class Video extends Model {
-  public id!: string;
+type VideoAssociations = "channel";
 
-  public title!: string | null;
+export default class Video extends Model<
+  InferAttributes<Video, { omit: VideoAssociations }>,
+  InferCreationAttributes<Video, { omit: VideoAssociations }>
+> {
+  declare id: string;
+  declare title: string | null;
+  declare description: string | null;
+  declare uploadDate: string | null;
+  declare duration: number | null;
+  declare viewCount: number | null;
+  declare thumbnail: string | null;
+  declare ext: string | null;
+  declare createdAt: CreationOptional<Date>;
+  declare updatedAt: CreationOptional<Date>;
 
-  public description!: string | null;
+  // Video belongsTo Channel
+  declare channel?: NonAttribute<Channel>;
+  declare getChannel: BelongsToGetAssociationMixin<Channel>;
+  declare setChannel: BelongsToSetAssociationMixin<Channel, string>;
+  declare createChannel: BelongsToCreateAssociationMixin<Channel>;
 
-  public upload_date!: Date | null;
+  declare static associations: {
+    channel: Association<Video, Channel>;
+  };
 
-  public channel_id!: string | null;
+  static initModel(sequelize: Sequelize): typeof Video {
+    Video.init(
+      {
+        id: {
+          type: DataTypes.STRING(11),
+          primaryKey: true,
+        },
+        title: {
+          type: DataTypes.STRING(100),
+        },
+        description: {
+          type: DataTypes.STRING(5000),
+        },
+        uploadDate: {
+          type: DataTypes.DATEONLY,
+        },
+        duration: {
+          type: DataTypes.INTEGER,
+        },
+        viewCount: {
+          type: DataTypes.INTEGER,
+        },
+        thumbnail: {
+          type: DataTypes.STRING(255),
+        },
+        ext: {
+          type: DataTypes.STRING(4),
+        },
+        createdAt: {
+          type: DataTypes.DATE,
+        },
+        updatedAt: {
+          type: DataTypes.DATE,
+        },
+      },
+      {
+        sequelize,
+      }
+    );
 
-  public duration!: number | null;
-
-  public view_count!: number | null;
-
-  public thumbnail!: string | null;
-
-  public ext!: string | null;
-}
-
-export function videoInit(sequelize: Sequelize) {
-  return Video.init(
-    {
-      id: { type: DataTypes.CHAR(11), primaryKey: true },
-      title: `${DataTypes.STRING(100)} CHARACTER SET utf8mb4`,
-      description: `${DataTypes.STRING(5000)} CHARACTER SET utf8mb4`,
-      upload_date: DataTypes.DATE,
-      channel_id: DataTypes.CHAR(24),
-      duration: DataTypes.INTEGER,
-      view_count: DataTypes.INTEGER,
-      thumbnail: DataTypes.STRING(255),
-      ext: DataTypes.CHAR(4),
-    },
-    { sequelize }
-  );
+    return Video;
+  }
 }

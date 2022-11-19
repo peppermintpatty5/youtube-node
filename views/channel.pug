@@ -5,7 +5,7 @@ block append head
   link(rel="stylesheet", href="/stylesheets/style.css")
 
 block main
-  main.container
+  .container
     h1= channel.name
     ol.list-unstyled.row.g-1(
       class=["1", "sm-2", "md-3", "lg-4", "xl-5", "xxl-6"].map((x) => `row-cols-${x}`)

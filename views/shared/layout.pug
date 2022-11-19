@@ -7,11 +7,11 @@ html(lang="en")
       meta(name="viewport", content="width=device-width, initial-scale=1.0")
   body
     header
-      nav.navbar.navbar-expand-lg.bg-light
+      nav.navbar.fixed-top.bg-light.border-bottom.shadow-sm
         .container
           a.navbar-brand(href="/").
             #[img.d-inline-block.align-text-center(src="/images/youtube_logo.svg", alt="YouTube", height="48")]
-            Broadcast Yourself &trade;
+            Broadcast Yourself&trade;
           form.d-flex(role="search")
             input.form-control.me-2(
               type="search",
@@ -19,5 +19,5 @@ html(lang="en")
               aria-label="Search"
             )
             button.btn.btn-outline-primary(type="submit") Search
-
-    block main
+    main
+      block main

@@ -6,4 +6,18 @@ html(lang="en")
       meta(http-equiv="X-UA-Compatible", content="IE=edge")
       meta(name="viewport", content="width=device-width, initial-scale=1.0")
   body
+    header
+      nav.navbar.navbar-expand-lg.bg-light
+        .container
+          a.navbar-brand(href="/").
+            #[img.d-inline-block.align-text-center(src="/images/youtube_logo.svg", alt="YouTube", height="48")]
+            Broadcast Yourself &trade;
+          form.d-flex(role="search")
+            input.form-control.me-2(
+              type="search",
+              placeholder="Search",
+              aria-label="Search"
+            )
+            button.btn.btn-outline-primary(type="submit") Search
+
     block main

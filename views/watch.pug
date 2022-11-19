@@ -5,11 +5,12 @@ block append head
   link(rel="stylesheet", href="/stylesheets/style.css")
 
 block main
-  video(controls).
-    #[source(src=`/file/${video.id}.${video.ext}`)]
-    Sorry, your browser doesn't support embedded videos.
-  div
-    h2= video.title
+  main.container
+    h1= video.title
+    .ratio.ratio-16x9(style="background-color: black")
+      video.w-100(controls)
+        source(src=`/file/${video.id}.${video.ext}`)
+        a(href=`/file/${video.id}.${video.ext}`) Download video
     p #{ video.view_count } views &bull; #{ video.upload_date }
-    h3 Description
-    pre= video.description
+    h2 Description
+    p(style="white-space: pre-wrap")= video.description

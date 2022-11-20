@@ -34,6 +34,12 @@ app.use(
 );
 app.use(express.static(path.join(__dirname, "../public")));
 
+// serve Bootstrap files
+app.use(
+  "/js",
+  express.static(path.join(__dirname, "../node_modules/bootstrap/dist/js"))
+);
+
 app.use("/", indexRouter);
 app.use("/channel", channelRouter);
 app.use("/file", fileRouter);

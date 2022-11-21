@@ -11,6 +11,9 @@ block main
       video.w-100(controls)
         source(src=`/file/${video.id}.${video.ext}`)
         a(href=`/file/${video.id}.${video.ext}`) Download video
-    p #{ video.view_count } views &bull; #{ video.upload_date }
+    p.
+      Uploaded on #{ video.upload_date } by
+      #[a(href=`/channel/${channel.id}`)= channel.name]
+    p #{ video.view_count } views
     h2 Description
     p(style="white-space: pre-wrap")= video.description

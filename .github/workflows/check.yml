@@ -1,17 +1,19 @@
 name: Check
+
 on: [push]
+
 jobs:
   main:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          node-version: "16"
+          node-version: "18"
       - run: npm ci
       - name: Build
         run: npm run build
       - name: ESLint
-        run: npx --no-install eslint .
+        run: npx eslint .
       - name: Prettier
-        run: npx --no-install prettier --check .
+        run: npx prettier --check .

@@ -1,10 +1,17 @@
 import express from "express";
+import { Channel } from "../models";
 
 const router = express.Router();
 
-/* GET home page. */
 router.get("/", (req, res) => {
-  res.render("index", { title: "Express" });
+  Channel.findAll().then((channels) => {
+    res.render("index", {
+      channels: channels.map((channel) => ({
+        id: channel.id,
+        name: channel.name ?? "",
+      })),
+    });
+  });
 });
 
 export default router;

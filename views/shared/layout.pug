@@ -1,0 +1,35 @@
+doctype html
+html(lang="en")
+  head
+    block head
+      meta(charset="UTF-8")
+      meta(http-equiv="X-UA-Compatible", content="IE=edge")
+      meta(name="viewport", content="width=device-width, initial-scale=1.0")
+  body
+    header
+      nav.navbar.navbar-expand-md.fixed-top.bg-light.border-bottom.shadow-sm
+        .container
+          a.navbar-brand(href="/").
+            #[img.d-inline-block.align-text-center(src="/images/youtube_logo.svg", alt="YouTube", height="48")]
+            Broadcast Yourself&trade;
+          button.navbar-toggler(
+            type="button",
+            data-bs-toggle="collapse",
+            data-bs-target="#navbar-nav",
+            aria-controls="navbar-nav",
+            aria-expanded="false",
+            aria-label="Toggle navigation"
+          )
+            span.navbar-toggler-icon
+          #navbar-nav.collapse.navbar-collapse
+            form.d-flex.ms-auto(role="search")
+              input.form-control.me-2(
+                type="search",
+                placeholder="Search",
+                aria-label="Search"
+              )
+              button.btn.btn-outline-primary(type="submit") Search
+    main
+      block main
+    block scripts
+      script(src="/js/bootstrap.min.js")

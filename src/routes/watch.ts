@@ -24,6 +24,8 @@ router.get("/", (req, res, next) => {
             title: video.title ?? "",
             upload_date: formatDate(video.uploadDate ?? "1970-01-01"),
             view_count: (video.viewCount ?? 0).toLocaleString(),
+            likeCount: video.likeCount ?? 0,
+            dislikeCount: video.dislikeCount ?? 0,
           },
           channel: {
             id: video.channel?.id,

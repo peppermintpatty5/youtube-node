@@ -15,5 +15,10 @@ block main
       Uploaded on #{ video.upload_date } by
       #[a(href=`/channel/${channel.id}`)= channel.name]
     p #{ video.view_count } views
+    .progress(style="height: 5px")
+      .progress-bar.bg-info(
+        style=`width: ${100 * video.likeCount / (video.likeCount + video.dislikeCount)}%`
+      )
+    p #{ video.likeCount } likes / #{ video.dislikeCount } dislikes
     h2 Description
     p(style="white-space: pre-wrap")= video.description

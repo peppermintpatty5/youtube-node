@@ -26,6 +26,8 @@ export default class Video extends Model<
   declare uploadDate: string | null;
   declare duration: number | null;
   declare viewCount: number | null;
+  declare likeCount: number | null;
+  declare dislikeCount: number | null;
   declare thumbnail: string | null;
   declare ext: string | null;
   declare createdAt: CreationOptional<Date>;
@@ -61,6 +63,12 @@ export default class Video extends Model<
           type: DataTypes.INTEGER,
         },
         viewCount: {
+          type: DataTypes.INTEGER,
+        },
+        likeCount: {
+          type: DataTypes.INTEGER,
+        },
+        dislikeCount: {
           type: DataTypes.INTEGER,
         },
         thumbnail: {

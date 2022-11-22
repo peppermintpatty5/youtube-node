@@ -1,2 +1,12 @@
+dist
+docker-compose.yml
+Dockerfile
+.dockerignore
 .env
-node_modules/
+.git
+.github
+.gitignore
+LICENSE
+node_modules
+README.md
+videos

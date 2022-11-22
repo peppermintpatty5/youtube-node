@@ -1,14 +1,14 @@
-FROM node:16
+FROM node:18
 
 # Create app directory
 WORKDIR /usr/src/app
 
 # Install dependencies
 COPY package.json package-lock.json ./
-RUN npm install
+RUN npm ci
 
 # Build app
 COPY . .
 RUN npm run build
 
-CMD npm start
+CMD [ "node", "dist/bin/www.js" ]

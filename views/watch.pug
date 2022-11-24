@@ -7,18 +7,20 @@ block append head
 block main
   .container
     h1= title
-    .ratio.ratio-16x9(style="background-color: black")
+    .ratio.ratio-16x9.mb-3(style="background-color: black")
       video.w-100(controls)
         source(src=`/file/${id}.${ext}`)
         a(href=`/file/${id}.${ext}`) Download video
-    p.
-      Uploaded on #{ uploadDate } by
-      #[a(href=`/channel/${channel.id}`)= channel.name]
-    p #{ viewCount } views
-    .progress(style="height: 5px")
-      .progress-bar.bg-info(
-        style=`width: ${100 * likeCount / (likeCount + dislikeCount)}%`
-      )
-    p #{ likeCount } likes / #{ dislikeCount } dislikes
+    ul.list-unstyled.row
+      li.col-sm-6.
+        Uploaded on #{ uploadDate } by
+        #[a(href=`/channel/${channel.id}`)= channel.name]
+      li.col-sm-6.text-sm-end
+        span.fs-4 #{ viewCount } views
+        .progress.ms-sm-auto(style="width: 250px; height: 5px")
+          .progress-bar.bg-primary(
+            style=`width: ${100 * likeCount / (likeCount + dislikeCount)}%`
+          )
+        small #{ likeCount } likes / #{ dislikeCount } dislikes
     h2 Description
     p(style="white-space: pre-wrap")= description

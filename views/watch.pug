@@ -1,19 +1,25 @@
 extends shared/layout
 
 block append head
-  title= video.title
+  title= title
   link(rel="stylesheet", href="/stylesheets/style.css")
 
 block main
   .container
-    h1= video.title
-    .ratio.ratio-16x9(style="background-color: black")
+    h1= title
+    .ratio.ratio-16x9.mb-3(style="background-color: black")
       video.w-100(controls)
-        source(src=`/file/${video.id}.${video.ext}`)
-        a(href=`/file/${video.id}.${video.ext}`) Download video
-    p.
-      Uploaded on #{ video.upload_date } by
-      #[a(href=`/channel/${channel.id}`)= channel.name]
-    p #{ video.view_count } views
+        source(src=`/file/${id}.${ext}`)
+        a(href=`/file/${id}.${ext}`) Download video
+    ul.list-unstyled.row
+      li.col-sm-6.
+        Uploaded on #{ uploadDate } by
+        #[a(href=`/channel/${channel.id}`)= channel.name]
+      li.col-sm-6.text-sm-end
+        - const likeDislikeRatio = likeCount + dislikeCount > 0 ? likeCount / (likeCount + dislikeCount) : 0;
+        span.fs-4 #{ viewCount } views
+        .progress.ms-sm-auto(style="width: 250px; height: 5px")
+          .progress-bar.bg-primary(style=`width: ${100 * likeDislikeRatio}%`)
+        small #{ likeCount } likes / #{ dislikeCount } dislikes
     h2 Description
-    p(style="white-space: pre-wrap")= video.description
+    p(style="white-space: pre-wrap")= description

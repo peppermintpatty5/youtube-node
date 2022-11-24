@@ -32,22 +32,20 @@ function formatDate(date: string) {
   return moment.utc(date).format("MMM D, YYYY");
 }
 
-router.get("/:channel_id", (req, res, next) => {
-  if (req.params.channel_id)
-    Channel.findByPk(req.params.channel_id).then((channel) => {
+router.get("/:id", (req, res, next) => {
+  if (req.params.id)
+    Channel.findByPk(req.params.id).then((channel) => {
       if (channel !== null)
         channel.getVideos({ order: [["uploadDate", "ASC"]] }).then((videos) => {
           res.render("channel", {
-            channel: {
-              name: channel.name ?? "",
-            },
+            name: channel.name ?? "",
             videos: videos.map((video) => ({
               duration: formatDuration(video.duration ?? 0),
               id: video.id,
               thumbnail: getLocalThumbnail(video),
               title: video.title ?? "",
-              upload_date: formatDate(video.uploadDate ?? "1970-01-01"),
-              view_count: (video.viewCount ?? 0).toLocaleString(),
+              uploadDate: formatDate(video.uploadDate ?? "1970-01-01"),
+              viewCount: (video.viewCount ?? 0).toLocaleString(),
             })),
           });
         });

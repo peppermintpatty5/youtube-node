@@ -16,6 +16,8 @@ type VideoInfo = {
   upload_date?: string;
   duration?: number;
   view_count?: number;
+  like_count?: number;
+  dislike_count?: number;
   thumbnail?: string;
   ext?: string;
 
@@ -49,6 +51,8 @@ function insertIntoDatabase(v: VideoInfo) {
         uploadDate: hyphenDate(v.upload_date),
         duration: v.duration,
         viewCount: v.view_count,
+        likeCount: v.like_count,
+        dislikeCount: v.dislike_count,
         thumbnail: v.thumbnail,
         ext: v.ext,
       })

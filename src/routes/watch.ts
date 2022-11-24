@@ -17,14 +17,14 @@ router.get("/", (req, res, next) => {
     }).then((video) => {
       if (video !== null)
         res.render("watch", {
-          video: {
-            id: video.id,
-            description: video.description ?? "",
-            ext: video.ext ?? "",
-            title: video.title ?? "",
-            upload_date: formatDate(video.uploadDate ?? "1970-01-01"),
-            view_count: (video.viewCount ?? 0).toLocaleString(),
-          },
+          id: video.id,
+          description: video.description ?? "",
+          ext: video.ext ?? "",
+          title: video.title ?? "",
+          uploadDate: formatDate(video.uploadDate ?? "1970-01-01"),
+          viewCount: (video.viewCount ?? 0).toLocaleString(),
+          likeCount: video.likeCount ?? 0,
+          dislikeCount: video.dislikeCount ?? 0,
           channel: {
             id: video.channel?.id,
             name: video.channel?.name,

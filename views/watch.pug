@@ -16,11 +16,10 @@ block main
         Uploaded on #{ uploadDate } by
         #[a(href=`/channel/${channel.id}`)= channel.name]
       li.col-sm-6.text-sm-end
+        - const likeDislikeRatio = likeCount + dislikeCount > 0 ? likeCount / (likeCount + dislikeCount) : 0;
         span.fs-4 #{ viewCount } views
         .progress.ms-sm-auto(style="width: 250px; height: 5px")
-          .progress-bar.bg-primary(
-            style=`width: ${100 * likeCount / (likeCount + dislikeCount)}%`
-          )
+          .progress-bar.bg-primary(style=`width: ${100 * likeDislikeRatio}%`)
         small #{ likeCount } likes / #{ dislikeCount } dislikes
     h2 Description
     p(style="white-space: pre-wrap")= description

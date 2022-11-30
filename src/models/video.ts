@@ -30,6 +30,7 @@ export default class Video extends Model<
   declare dislikeCount: number | null;
   declare thumbnail: string | null;
   declare ext: string | null;
+  declare localVideoPath: string | null;
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
 
@@ -76,6 +77,9 @@ export default class Video extends Model<
         },
         ext: {
           type: DataTypes.STRING(4),
+        },
+        localVideoPath: {
+          type: DataTypes.STRING(255),
         },
         createdAt: {
           type: DataTypes.DATE,

@@ -61,31 +61,33 @@ function insertIntoDatabase(v: VideoInfo, localVideoPath: string | null) {
     );
 }
 
-const videosDir = path.join(__dirname, "../../videos");
+async function indexVideos() {
+  await db.sync({ force: true });
+
+  const videosDir = path.join(__dirname, "../../videos");
+  const rl = readline.createInterface({ input: process.stdin });
+
+  // eslint-disable-next-line no-restricted-syntax
+  for await (const line of rl) {
+    if (line.endsWith(".info.json")) {
+      const file = line; // videos/foo/bar.info.json
+      const relPath = path.relative(videosDir, file); // foo/bar.info.json
+      const dirname = path.dirname(relPath); // foo
+      const basename = path.basename(relPath, ".info.json"); // bar
+
+      const vInfo = JSON.parse(
+        fs.readFileSync(file, { encoding: "utf-8" })
+      ) as VideoInfo;
+      const localVideoPath =
+        vInfo.ext !== undefined
+          ? path.join(dirname, `${basename}.${vInfo.ext}`)
+          : null;
+
+      await insertIntoDatabase(vInfo, localVideoPath);
+      console.log(vInfo.title);
+    }
+  }
+}
 
 initModels(db);
-
-db.sync({ force: true }).then(() =>
-  readline.promises
-    .createInterface({ input: process.stdin })
-    .on("line", async (line) => {
-      if (line.endsWith(".info.json")) {
-        const file = line; // videos/foo/bar.info.json
-        const relPath = path.relative(videosDir, file); // foo/bar.info.json
-        const dirname = path.dirname(relPath); // foo
-        const basename = path.basename(relPath, ".info.json"); // bar
-
-        const vInfo = JSON.parse(
-          fs.readFileSync(file, { encoding: "utf-8" })
-        ) as VideoInfo;
-        const localVideoPath =
-          vInfo.ext !== undefined
-            ? path.join(dirname, `${basename}.${vInfo.ext}`)
-            : null;
-
-        console.log(localVideoPath);
-        await insertIntoDatabase(vInfo, localVideoPath);
-        console.log(vInfo.title);
-      }
-    })
-);
+indexVideos().then(() => db.close());

@@ -8,8 +8,9 @@ import sassMiddleware from "node-sass-middleware";
 import db from "./db";
 import { initModels } from "./models";
 import channelRouter from "./routes/channel";
-import fileRouter from "./routes/file";
 import indexRouter from "./routes/index";
+import thumbnailRouter from "./routes/thumbnail";
+import videoRouter from "./routes/video";
 import watchRouter from "./routes/watch";
 
 initModels(db);
@@ -42,8 +43,8 @@ app.use(
 
 app.use("/", indexRouter);
 app.use("/channel", channelRouter);
-app.use("/file", fileRouter);
-app.use("/file", express.static(path.join(__dirname, "../videos")));
+app.use("/thumbnail", thumbnailRouter);
+app.use("/video", videoRouter);
 app.use("/watch", watchRouter);
 
 // catch 404 and forward to error handler

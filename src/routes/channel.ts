@@ -21,25 +21,6 @@ function formatDuration(seconds: number) {
   return h > 0 ? `${h}:${mm}:${ss}` : `${m}:${ss}`;
 }
 
-/**
- * Deduce the local thumbnail path using the local video path and the file
- * extension from the thumbnail URL.
- */
-function getLocalThumbnail(video: Video) {
-  if (
-    video.localVideoPath !== null &&
-    video.ext !== null &&
-    video.thumbnail !== null
-  ) {
-    const dirname = path.dirname(video.localVideoPath);
-    const basename = path.basename(video.localVideoPath, `.${video.ext}`);
-    const ext = path.extname(new URL(video.thumbnail).pathname);
-
-    return path.join(dirname, `${basename}${ext}`);
-  }
-  return "";
-}
-
 function formatDate(date: string) {
   return moment.utc(date).format("MMM D, YYYY");
 }
@@ -54,7 +35,6 @@ router.get("/:id", (req, res, next) => {
             videos: videos.map((video) => ({
               duration: formatDuration(video.duration ?? 0),
               id: video.id,
-              thumbnail: `/file/${getLocalThumbnail(video)}`,
               title: video.title ?? "",
               uploadDate: formatDate(video.uploadDate ?? "1970-01-01"),
               viewCount: (video.viewCount ?? 0).toLocaleString(),

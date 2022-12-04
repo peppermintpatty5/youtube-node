@@ -24,7 +24,6 @@ router.get("/", (req, res, next) => {
           viewCount: (video.viewCount ?? 0).toLocaleString(),
           likeCount: video.likeCount ?? 0,
           dislikeCount: video.dislikeCount ?? 0,
-          localVideoPath: video.localVideoPath,
           channel: {
             id: video.channel?.id,
             name: video.channel?.name,

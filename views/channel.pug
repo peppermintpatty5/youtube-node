@@ -13,7 +13,7 @@ block main
       each video in videos
         li.col
           .card.border-0
-            img.card-img.rounded-0(src=video.thumbnail, alt=video.id)
+            img.card-img.rounded-0(src=`/thumbnail/${video.id}`, alt=video.id)
             .card-body.p-1.mb-3
               p.card-title.fw-semibold.
                 #[span.badge.rounded-pill.text-bg-dark= video.duration]

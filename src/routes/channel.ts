@@ -2,7 +2,7 @@ import express from "express";
 import createError from "http-errors";
 import moment from "moment";
 
-import { Channel, Video } from "../models";
+import { Channel } from "../models";
 
 const router = express.Router();
 
@@ -20,14 +20,6 @@ function formatDuration(seconds: number) {
   return h > 0 ? `${h}:${mm}:${ss}` : `${m}:${ss}`;
 }
 
-function getLocalThumbnail(video: Video) {
-  if (video.thumbnail) {
-    const ext = new URL(video.thumbnail).pathname.split(".").pop();
-    return `/file/${video.id}.${ext}`;
-  }
-  return "";
-}
-
 function formatDate(date: string) {
   return moment.utc(date).format("MMM D, YYYY");
 }
@@ -42,7 +34,6 @@ router.get("/:id", (req, res, next) => {
             videos: videos.map((video) => ({
               duration: formatDuration(video.duration ?? 0),
               id: video.id,
-              thumbnail: getLocalThumbnail(video),
               title: video.title ?? "",
               uploadDate: formatDate(video.uploadDate ?? "1970-01-01"),
               viewCount: (video.viewCount ?? 0).toLocaleString(),

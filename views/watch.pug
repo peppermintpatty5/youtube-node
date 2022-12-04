@@ -9,8 +9,8 @@ block main
     h1= title
     .ratio.ratio-16x9.mb-3(style="background-color: black")
       video.w-100(controls)
-        source(src=`/file/${id}.${ext}`)
-        a(href=`/file/${id}.${ext}`) Download video
+        source(src=`/video/${id}`)
+        a(href=`/video/${id}`) Download video
     ul.list-unstyled.row
       li.col-sm-6.
         Uploaded on #{ uploadDate } by

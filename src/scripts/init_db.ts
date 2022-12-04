@@ -2,6 +2,7 @@
 
 import fs from "fs";
 import path from "path";
+import readline from "readline";
 
 import db from "../db";
 import { Channel, initModels } from "../models";
@@ -40,7 +41,7 @@ function hyphenDate(date?: string) {
 /**
  * Inserts the video into the database.
  */
-function insertIntoDatabase(v: VideoInfo) {
+function insertIntoDatabase(v: VideoInfo, localVideoPath: string | null) {
   return Channel.findOrCreate({ where: { id: v.channel_id } })
     .then(([channel]) => channel.update({ name: v.uploader }))
     .then((channel) =>
@@ -55,37 +56,38 @@ function insertIntoDatabase(v: VideoInfo) {
         dislikeCount: v.dislike_count,
         thumbnail: v.thumbnail,
         ext: v.ext,
+        localVideoPath,
       })
     );
 }
 
-const dir = process.argv[2] ?? process.cwd();
+async function indexVideos() {
+  await db.sync({ force: true });
+
+  const videosDir = path.join(__dirname, "../../videos");
+  const rl = readline.createInterface({ input: process.stdin });
+
+  // eslint-disable-next-line no-restricted-syntax
+  for await (const line of rl) {
+    if (line.endsWith(".info.json")) {
+      const file = line; // videos/foo/bar.info.json
+      const relPath = path.relative(videosDir, file); // foo/bar.info.json
+      const dirname = path.dirname(relPath); // foo
+      const basename = path.basename(relPath, ".info.json"); // bar
+
+      const vInfo = JSON.parse(
+        fs.readFileSync(file, { encoding: "utf-8" })
+      ) as VideoInfo;
+      const localVideoPath =
+        vInfo.ext !== undefined
+          ? path.join(dirname, `${basename}.${vInfo.ext}`)
+          : null;
+
+      await insertIntoDatabase(vInfo, localVideoPath);
+      console.log(vInfo.title);
+    }
+  }
+}
 
 initModels(db);
-
-db.sync({ force: true })
-  .then(() =>
-    fs.promises
-      .readdir(dir)
-      .then((files) =>
-        Promise.allSettled(
-          files
-            .filter((file) => file.endsWith(".info.json"))
-            .map((file) =>
-              fs.promises
-                .readFile(path.join(dir, file), { encoding: "utf-8" })
-                .then((text) => JSON.parse(text) as VideoInfo)
-                .then((vInfo) => insertIntoDatabase(vInfo))
-                .then((video) => console.log(video.title))
-            )
-        )
-      )
-      .then((results) =>
-        console.log(
-          "%d succeeded, %d failed",
-          results.filter((r) => r.status === "fulfilled").length,
-          results.filter((r) => r.status === "rejected").length
-        )
-      )
-  )
-  .finally(() => db.close());
+indexVideos().then(() => db.close());

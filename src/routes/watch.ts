@@ -1,5 +1,5 @@
-import createError from "http-errors";
 import express from "express";
+import createError from "http-errors";
 import moment from "moment";
 
 import { Channel, Video } from "../models";
@@ -19,7 +19,6 @@ router.get("/", (req, res, next) => {
         res.render("watch", {
           id: video.id,
           description: video.description ?? "",
-          ext: video.ext ?? "",
           title: video.title ?? "",
           uploadDate: formatDate(video.uploadDate ?? "1970-01-01"),
           viewCount: (video.viewCount ?? 0).toLocaleString(),

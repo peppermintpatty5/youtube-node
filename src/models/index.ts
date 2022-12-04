@@ -1,6 +1,7 @@
 import type { Sequelize } from "sequelize";
-import Video from "./video";
+
 import Channel from "./channel";
+import Video from "./video";
 
 export { Video, Channel };
 

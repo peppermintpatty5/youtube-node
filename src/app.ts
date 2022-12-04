@@ -1,9 +1,9 @@
 import cookieParser from "cookie-parser";
-import createError from "http-errors";
 import express, { ErrorRequestHandler } from "express";
+import createError from "http-errors";
 import logger from "morgan";
-import path from "path";
 import sassMiddleware from "node-sass-middleware";
+import path from "path";
 
 import db from "./db";
 import { initModels } from "./models";

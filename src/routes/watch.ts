@@ -1,5 +1,5 @@
-import createError from "http-errors";
 import express from "express";
+import createError from "http-errors";
 import moment from "moment";
 
 import { Channel, Video } from "../models";

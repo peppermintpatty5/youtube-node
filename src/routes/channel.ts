@@ -1,9 +1,8 @@
 import express from "express";
 import createError from "http-errors";
 import moment from "moment";
-import path from "path";
 
-import { Channel, Video } from "../models";
+import { Channel } from "../models";
 
 const router = express.Router();
 

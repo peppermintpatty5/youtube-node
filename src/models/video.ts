@@ -1,17 +1,19 @@
 /* eslint-disable @typescript-eslint/lines-between-class-members */
+
 import {
   Association,
+  BelongsToCreateAssociationMixin,
   BelongsToGetAssociationMixin,
   BelongsToSetAssociationMixin,
-  BelongsToCreateAssociationMixin,
   CreationOptional,
   DataTypes,
-  InferCreationAttributes,
   InferAttributes,
+  InferCreationAttributes,
   Model,
   NonAttribute,
   Sequelize,
 } from "sequelize";
+
 import type Channel from "./channel";
 
 type VideoAssociations = "channel";

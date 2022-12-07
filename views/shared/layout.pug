@@ -6,6 +6,8 @@ html(lang="en")
       meta(http-equiv="X-UA-Compatible", content="IE=edge")
       meta(name="viewport", content="width=device-width, initial-scale=1.0")
   body
+    .container.visually-hidden-focusable.overflow-hidden
+      a.d-inline-flex.p-2.m-1(href="#content") Skip to main content
     header
       nav.navbar.navbar-expand-md.fixed-top.bg-light.border-bottom.shadow-sm
         .container
@@ -29,7 +31,9 @@ html(lang="en")
                 aria-label="Search"
               )
               button.btn.btn-outline-primary(type="submit") Search
+      hr.visually-hidden
     main
+      a#content
       block main
     block scripts
       script(src="/js/bootstrap.min.js")

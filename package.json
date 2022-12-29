@@ -3,9 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "npx tsc",
-    "init_db": "node ./dist/scripts/init_db.js",
-    "start": "node ./dist/bin/www.js"
+    "build": "npm-run-all build:*",
+    "build:css": "sass src/scss/:dist/css/",
+    "build:js": "tsc",
+    "init_db": "node dist/scripts/init_db",
+    "start": "node dist/bin/www"
   },
   "dependencies": {
     "bootstrap": "^5.2.2",
@@ -35,6 +37,7 @@
     "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
+    "npm-run-all": "^4.1.5",
     "prettier": "2.7.1",
     "sass": "^1.56.1",
     "typescript": "^4.9.3"

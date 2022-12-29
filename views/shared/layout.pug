@@ -6,14 +6,18 @@ html(lang="en")
       meta(http-equiv="X-UA-Compatible", content="IE=edge")
       meta(name="viewport", content="width=device-width, initial-scale=1.0")
   body
-    .container.visually-hidden-focusable.overflow-hidden
+    p.container.visually-hidden-focusable.overflow-hidden
       a.d-inline-flex.p-2.m-1(href="#content") Skip to main content
     header
       nav.navbar.navbar-expand-md.fixed-top.bg-light.border-bottom.shadow-sm
         .container
-          a.navbar-brand(href="/").
-            #[img.d-inline-block.align-text-center(src="/images/youtube_logo.svg", alt="YouTube", height="48")]
-            Broadcast Yourself&trade;
+          a.navbar-brand(href="/")
+            img.d-inline-block.align-text-center(
+              src="/images/youtube_logo.svg",
+              alt="YouTube",
+              style="height: 40px"
+            )
+            span.d-none.d-sm-inline.ms-1 Broadcast Yourself&trade;
           button.navbar-toggler(
             type="button",
             data-bs-toggle="collapse",

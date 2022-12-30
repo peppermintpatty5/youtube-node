@@ -4,13 +4,13 @@
   "private": true,
   "scripts": {
     "build": "npm-run-all build:*",
-    "build:css": "sass src/scss/:dist/css/",
+    "build:css": "sass scss/:dist/css/",
     "build:js": "tsc",
     "init_db": "node dist/scripts/init_db",
     "start": "node dist/bin/www"
   },
   "dependencies": {
-    "bootstrap": "^5.2.2",
+    "bootstrap": "^5.2.3",
     "cookie-parser": "~1.4.6",
     "debug": "~4.3.4",
     "dotenv": "^16.0.3",

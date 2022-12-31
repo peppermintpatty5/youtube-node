@@ -1,0 +1,18 @@
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+body {
+  margin-top: 5rem;
+}
+
+a.navbar-brand > img {
+  height: 40px;
+}
+
+#like-dislike-bar {
+  width: 250px;
+  height: 5px;
+}
+
+#video-description {
+  white-space: pre-wrap;
+}

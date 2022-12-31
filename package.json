@@ -3,12 +3,14 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "npx tsc",
-    "init_db": "node ./dist/scripts/init_db.js",
-    "start": "node ./dist/bin/www.js"
+    "build": "npm-run-all build:*",
+    "build:css": "sass scss/:dist/css/",
+    "build:js": "tsc",
+    "init_db": "node dist/scripts/init_db",
+    "start": "node dist/bin/www"
   },
   "dependencies": {
-    "bootstrap": "^5.2.2",
+    "bootstrap": "^5.2.3",
     "cookie-parser": "~1.4.6",
     "debug": "~4.3.4",
     "dotenv": "^16.0.3",
@@ -17,7 +19,6 @@
     "moment": "^2.29.4",
     "morgan": "~1.10.0",
     "mysql2": "^2.3.3",
-    "node-sass-middleware": "^1.0.1",
     "pug": "^3.0.2",
     "sequelize": "^6.25.7"
   },
@@ -28,7 +29,6 @@
     "@types/http-errors": "^2.0.1",
     "@types/morgan": "^1.9.3",
     "@types/node": "^18.11.9",
-    "@types/node-sass-middleware": "^0.0.32",
     "@typescript-eslint/eslint-plugin": "^5.44.0",
     "@typescript-eslint/parser": "^5.44.0",
     "eslint": "^8.28.0",
@@ -36,6 +36,7 @@
     "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
+    "npm-run-all": "^4.1.5",
     "prettier": "2.7.1",
     "sass": "^1.56.1",
     "typescript": "^4.9.3"

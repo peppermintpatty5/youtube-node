@@ -2,7 +2,6 @@ import cookieParser from "cookie-parser";
 import express, { ErrorRequestHandler } from "express";
 import createError from "http-errors";
 import logger from "morgan";
-import sassMiddleware from "node-sass-middleware";
 import path from "path";
 
 import db from "./db";
@@ -25,14 +24,6 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(
-  sassMiddleware({
-    src: path.join(__dirname, "../public"),
-    dest: path.join(__dirname, "../public"),
-    indentedSyntax: true, // true = .sass and false = .scss
-    sourceMap: true,
-  })
-);
 app.use(express.static(path.join(__dirname, "../public")));
 
 // serve Bootstrap files
@@ -40,6 +31,8 @@ app.use(
   "/js",
   express.static(path.join(__dirname, "../node_modules/bootstrap/dist/js"))
 );
+// serve compiled CSS files
+app.use("/stylesheets", express.static(path.join(__dirname, "css")));
 
 app.use("/", indexRouter);
 app.use("/channel", channelRouter);

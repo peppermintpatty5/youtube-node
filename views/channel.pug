@@ -14,10 +14,8 @@ block main
         li.col
           .card.border-0
             .position-relative
-              img.card-img.rounded-0(
-                src=`/thumbnail/${video.id}`,
-                alt=video.id
-              )
+              .ratio.ratio-16x9.bg-light
+                img.card-img.rounded-0(src=`/thumbnail/${video.id}`)
               span.position-absolute.bottom-0.end-0.badge.rounded-pill.m-1.bg-black.text-white.opacity-75= video.duration
             .card-body.p-1.mb-3
               a.link-dark.text-decoration-none(href=`/watch?v=${video.id}`)

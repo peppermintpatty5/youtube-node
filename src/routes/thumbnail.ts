@@ -5,8 +5,8 @@ import path from "path";
 import { Video } from "../models";
 
 /**
- * Deduce the local thumbnail path using the local video path and the file
- * extension from the thumbnail URL.
+ * Deduce the local thumbnail path from the thumbnail URL using the local video
+ * path and file extension.
  */
 function getLocalThumbnailPath(video: Video) {
   if (
@@ -29,12 +29,12 @@ router.get("/:id", (req, res, next) => {
   const { id } = req.params;
 
   Video.findByPk(id).then((video) => {
-    if (video !== null && video.localVideoPath !== null) {
-      const localThumbnailPath = getLocalThumbnailPath(video);
+    const localThumbnailPath =
+      video !== null ? getLocalThumbnailPath(video) : null;
 
-      if (localThumbnailPath !== null)
-        res.sendFile(path.join(__dirname, "../../videos", localThumbnailPath));
-    } else next(createError(404));
+    if (localThumbnailPath !== null)
+      res.sendFile(path.join(__dirname, "../../videos", localThumbnailPath));
+    else next(createError(404));
   });
 });
 

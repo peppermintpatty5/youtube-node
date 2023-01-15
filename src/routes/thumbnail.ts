@@ -1,5 +1,4 @@
 import express from "express";
-import createError from "http-errors";
 import path from "path";
 
 import { Video } from "../models";
@@ -25,7 +24,7 @@ function getLocalThumbnailPath(video: Video) {
 
 const router = express.Router();
 
-router.get("/:id", (req, res, next) => {
+router.get("/:id", (req, res) => {
   const { id } = req.params;
 
   Video.findByPk(id).then((video) => {
@@ -33,8 +32,13 @@ router.get("/:id", (req, res, next) => {
       video !== null ? getLocalThumbnailPath(video) : null;
 
     if (localThumbnailPath !== null)
-      res.sendFile(path.join(__dirname, "../../videos", localThumbnailPath));
-    else next(createError(404));
+      res.sendFile(
+        path.join(__dirname, "../../videos", localThumbnailPath),
+        (err) => {
+          if (err) res.sendStatus(404);
+        }
+      );
+    else res.sendStatus(404);
   });
 });
 

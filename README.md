@@ -2,6 +2,13 @@
 
 A simple website for hosting your archived YouTube videos. This project is a rewrite of [`pocket-youtube`](https://github.com/peppermintpatty5/pocket-youtube/) in Node.js.
 
+## Prerequisites
+
+You will need the following software (ignore if you are using Docker):
+
+- [Node.js](https://nodejs.org)
+- [PostgreSQL](https://postgresql.org)
+
 ## Installation
 
 1. Install the required Node.js packages and build the application.
@@ -11,7 +18,7 @@ A simple website for hosting your archived YouTube videos. This project is a rew
    npm run build
    ```
 
-2. Create a file `.env` containing your MySQL database credentials.
+2. Create a file `.env` containing your PostgreSQL database credentials.
 
    ```sh
    DB_HOST="localhost"
@@ -40,7 +47,7 @@ A simple website for hosting your archived YouTube videos. This project is a rew
 
 ## Video Indexing
 
-### Prerequisites
+### Data Requirements
 
 `youtube-dl` and its derivatives have several [options](https://github.com/ytdl-org/youtube-dl#options), two of which are important for archiving YouTube videos:
 
@@ -77,5 +84,5 @@ docker compose up
 Like before, the database must be initialized manually.
 
 ```sh
-docker compose exec app npm run init_db
+docker compose exec -T app npm run init_db
 ```

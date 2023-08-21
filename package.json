@@ -18,9 +18,9 @@
     "http-errors": "~2.0.0",
     "moment": "^2.29.4",
     "morgan": "~1.10.0",
-    "mysql2": "^2.3.3",
+    "pg": "^8.11.3",
     "pug": "^3.0.2",
-    "sequelize": "^6.25.7"
+    "sequelize": "^6.29.0"
   },
   "devDependencies": {
     "@prettier/plugin-pug": "^2.3.0",

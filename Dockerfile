@@ -1,14 +1,18 @@
-FROM node:18
-
-# Create app directory
+FROM node:lts-alpine AS build
 WORKDIR /usr/src/app
 
-# Install dependencies
 COPY package.json package-lock.json ./
-RUN npm ci
+RUN npm install
 
-# Build app
 COPY . .
 RUN npm run build
 
-CMD [ "node", "dist/bin/www.js" ]
+FROM node:lts-alpine AS final
+WORKDIR /usr/src/app
+
+COPY . .
+COPY --from=build /usr/src/app/dist ./dist
+RUN npm install --omit=dev
+
+EXPOSE 3000
+CMD [ "node", "dist/bin/www" ]

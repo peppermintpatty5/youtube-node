@@ -1,22 +1,23 @@
 services:
   db:
-    image: mysql:latest
-    restart: unless-stopped
+    image: postgres
+    restart: always
     environment:
-      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
-      - MYSQL_DATABASE=youtube
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_DATABASE}
   app:
     depends_on:
       - db
     build: .
-    restart: unless-stopped
+    restart: always
     ports:
       - 3000:3000
     environment:
       - DB_HOST=db
-      - DB_USERNAME=root
+      - DB_USERNAME=${DB_USERNAME}
       - DB_PASSWORD=${DB_PASSWORD}
-      - DB_DATABASE=youtube
+      - DB_DATABASE=${DB_DATABASE}
       - NODE_ENV=production
     volumes:
       - ./videos:/usr/src/app/videos:ro

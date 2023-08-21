@@ -32,12 +32,7 @@ router.get("/:id", (req, res) => {
       video !== null ? getLocalThumbnailPath(video) : null;
 
     if (localThumbnailPath !== null)
-      res.sendFile(
-        path.join(__dirname, "../../videos", localThumbnailPath),
-        (err) => {
-          if (err) res.sendStatus(404);
-        }
-      );
+      res.sendFile(path.join(__dirname, "../../videos", localThumbnailPath));
     else res.sendStatus(404);
   });
 });

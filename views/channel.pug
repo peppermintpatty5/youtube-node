@@ -20,7 +20,9 @@ block main
               )
               span.position-absolute.bottom-0.end-0.badge.rounded-pill.m-1.bg-black.text-white.opacity-75= video.duration
             .card-body.p-1.mb-3
-              a.link-dark.text-decoration-none(href=`/watch?v=${video.id}`)
+              a.link-body-emphasis.text-decoration-none(
+                href=`/watch?v=${video.id}`
+              )
                 p.card-title.fw-semibold= video.title
               p.card-subtitle.text-muted
                 small #{ video.viewCount } views &bull; #{ video.uploadDate }

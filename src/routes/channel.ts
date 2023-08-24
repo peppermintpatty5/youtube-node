@@ -25,24 +25,35 @@ function formatDate(date: string) {
 }
 
 router.get("/:id", (req, res, next) => {
-  if (req.params.id)
+  const pageSize = 10;
+
+  if (req.params.id) {
+    const { page } = req.query;
+    const pageNum = page ? Math.max(1, parseInt(page.toString(), 10) || 1) : 1;
+
     Channel.findByPk(req.params.id).then((channel) => {
       if (channel !== null)
-        channel.getVideos({ order: [["uploadDate", "ASC"]] }).then((videos) => {
-          res.render("channel", {
-            name: channel.name ?? "",
-            videos: videos.map((video) => ({
-              duration: formatDuration(video.duration ?? 0),
-              id: video.id,
-              title: video.title ?? "",
-              uploadDate: formatDate(video.uploadDate ?? "1970-01-01"),
-              viewCount: (video.viewCount ?? 0).toLocaleString(),
-            })),
+        channel
+          .getVideos({
+            order: [["uploadDate", "ASC"]],
+            offset: (pageNum - 1) * pageSize,
+            limit: pageSize,
+          })
+          .then((videos) => {
+            res.render("channel", {
+              name: channel.name ?? "",
+              videos: videos.map((video) => ({
+                duration: formatDuration(video.duration ?? 0),
+                id: video.id,
+                title: video.title ?? "",
+                uploadDate: formatDate(video.uploadDate ?? "1970-01-01"),
+                viewCount: (video.viewCount ?? 0).toLocaleString(),
+              })),
+            });
           });
-        });
       else next(createError(404));
     });
-  else res.redirect("/");
+  } else res.redirect("/");
 });
 
 export default router;

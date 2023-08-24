@@ -7,6 +7,18 @@ block append head
 block main
   .container
     h1= name
+    p #{ numVideos } videos
+    nav(aria-label="Page navigation")
+      ul.pagination
+        li.page-item
+          a.page-link(href="#", aria-label="Previous")
+            span(aria-hidden="true") &laquo;
+        each pageItem in pagination
+          li.page-item(class={ active: pageItem.active })
+            a.page-link(href=pageItem.href)= pageItem.text
+        li.page-item
+          a.page-link(href="#", aria-label="Next")
+            span(aria-hidden="true") &raquo;
     ol.list-unstyled.row.g-1(
       class=["1", "sm-2", "md-3", "lg-4", "xl-5", "xxl-6"].map((x) => `row-cols-${x}`)
     )

@@ -24,22 +24,33 @@ function formatDate(date: string) {
   return moment.utc(date).format("MMM D, YYYY");
 }
 
+function range(a: number, b: number) {
+  return [...Array(b - a)].map((_, i) => a + i);
+}
+
 router.get("/:id", (req, res, next) => {
   const pageSize = 10;
 
   if (req.params.id) {
     const { page } = req.query;
-    const pageNum = page ? Math.max(1, parseInt(page.toString(), 10) || 1) : 1;
+    const currentPage = page
+      ? Math.max(1, parseInt(page.toString(), 10) || 1)
+      : 1;
 
     Channel.findByPk(req.params.id).then(async (channel) => {
       if (channel !== null) {
         const numVideos = await channel.countVideos();
-        const numPages = Math.ceil(numVideos / pageSize);
         const videoSection = await channel.getVideos({
           order: [["uploadDate", "ASC"]],
-          offset: (pageNum - 1) * pageSize,
+          offset: (currentPage - 1) * pageSize,
           limit: pageSize,
         });
+
+        const numPages = Math.ceil(numVideos / pageSize);
+        const pageNumbers = range(
+          Math.max(currentPage - 5, 1),
+          Math.min(currentPage + 5, numPages) + 1
+        );
 
         res.render("channel", {
           name: channel.name ?? "",
@@ -51,11 +62,15 @@ router.get("/:id", (req, res, next) => {
             uploadDate: formatDate(video.uploadDate ?? "1970-01-01"),
             viewCount: (video.viewCount ?? 0).toLocaleString(),
           })),
-          pagination: [...Array(numPages).keys()].map((x) => ({
-            active: pageNum === x + 1,
-            href: `?page=${x + 1}`,
-            text: `${x + 1}`,
-          })),
+          pagination: {
+            prev: currentPage > 1 ? `?page=${currentPage - 1}` : null,
+            next: currentPage < numPages ? `?page=${currentPage + 1}` : null,
+            pageNumbers: pageNumbers.map((p) => ({
+              active: p === currentPage,
+              href: `?page=${p}`,
+              text: p.toLocaleString(),
+            })),
+          },
         });
       } else next(createError(404));
     });

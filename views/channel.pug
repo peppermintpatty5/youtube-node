@@ -8,15 +8,15 @@ block main
   .container
     h1= name
     p #{ numVideos } videos
-    nav(aria-label="Page navigation")
+    nav
       ul.pagination
         li.page-item(class={ disabled: pagination.prev === null })
-          a.page-link(href=pagination.prev) &laquo;
+          a.page-link(href=pagination.prev) Previous
         each pageItem in pagination.pageNumbers
           li.page-item(class={ active: pageItem.active })
             a.page-link(href=pageItem.href)= pageItem.text
         li.page-item(class={ disabled: pagination.next === null })
-          a.page-link(href=pagination.next) &raquo;
+          a.page-link(href=pagination.next) Next
     ol.list-unstyled.row.g-1(
       class=["1", "sm-2", "md-3", "lg-4", "xl-5", "xxl-6"].map((x) => `row-cols-${x}`)
     )

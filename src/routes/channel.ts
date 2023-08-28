@@ -29,7 +29,7 @@ function range(a: number, b: number) {
 }
 
 router.get("/:id", (req, res, next) => {
-  const pageSize = 10;
+  const pageSize = 30;
 
   if (req.params.id) {
     const { page } = req.query;

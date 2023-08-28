@@ -33,24 +33,21 @@ router.get("/:id", (req, res, next) => {
 
   if (req.params.id) {
     const { page } = req.query;
-    const currentPage = page
-      ? Math.max(1, parseInt(page.toString(), 10) || 1)
-      : 1;
 
     Channel.findByPk(req.params.id).then(async (channel) => {
       if (channel !== null) {
         const numVideos = await channel.countVideos();
+        const numPages = Math.ceil(numVideos / pageSize);
+        const currentPage = Math.max(
+          1,
+          Math.min(numPages, parseInt((page ?? "1").toString(), 10) || 1)
+        );
+
         const videoSection = await channel.getVideos({
           order: [["uploadDate", "ASC"]],
           offset: (currentPage - 1) * pageSize,
           limit: pageSize,
         });
-
-        const numPages = Math.ceil(numVideos / pageSize);
-        const pageNumbers = range(
-          Math.max(currentPage - 5, 1),
-          Math.min(currentPage + 5, numPages) + 1
-        );
 
         res.render("channel", {
           name: channel.name ?? "",
@@ -65,7 +62,10 @@ router.get("/:id", (req, res, next) => {
           pagination: {
             prev: currentPage > 1 ? `?page=${currentPage - 1}` : null,
             next: currentPage < numPages ? `?page=${currentPage + 1}` : null,
-            pageNumbers: pageNumbers.map((p) => ({
+            pageNumbers: range(
+              Math.max(currentPage - 5, 1),
+              Math.min(currentPage + 5, numPages) + 1
+            ).map((p) => ({
               active: p === currentPage,
               href: `?page=${p}`,
               text: p.toLocaleString(),

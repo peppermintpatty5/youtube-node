@@ -24,25 +24,57 @@ function formatDate(date: string) {
   return moment.utc(date).format("MMM D, YYYY");
 }
 
+function range(a: number, b: number) {
+  return [...Array(b - a)].map((_, i) => a + i);
+}
+
 router.get("/:id", (req, res, next) => {
-  if (req.params.id)
-    Channel.findByPk(req.params.id).then((channel) => {
-      if (channel !== null)
-        channel.getVideos({ order: [["uploadDate", "ASC"]] }).then((videos) => {
-          res.render("channel", {
-            name: channel.name ?? "",
-            videos: videos.map((video) => ({
-              duration: formatDuration(video.duration ?? 0),
-              id: video.id,
-              title: video.title ?? "",
-              uploadDate: formatDate(video.uploadDate ?? "1970-01-01"),
-              viewCount: (video.viewCount ?? 0).toLocaleString(),
-            })),
-          });
+  const pageSize = 30;
+
+  if (req.params.id) {
+    const { page } = req.query;
+
+    Channel.findByPk(req.params.id).then(async (channel) => {
+      if (channel !== null) {
+        const numVideos = await channel.countVideos();
+        const numPages = Math.ceil(numVideos / pageSize);
+        const currentPage = Math.max(
+          1,
+          Math.min(numPages, parseInt((page ?? "1").toString(), 10) || 1)
+        );
+
+        const videoSection = await channel.getVideos({
+          order: [["uploadDate", "ASC"]],
+          offset: (currentPage - 1) * pageSize,
+          limit: pageSize,
         });
-      else next(createError(404));
+
+        res.render("channel", {
+          name: channel.name ?? "",
+          numVideos,
+          videos: videoSection.map((video) => ({
+            duration: formatDuration(video.duration ?? 0),
+            id: video.id,
+            title: video.title ?? "",
+            uploadDate: formatDate(video.uploadDate ?? "1970-01-01"),
+            viewCount: (video.viewCount ?? 0).toLocaleString(),
+          })),
+          pagination: {
+            prev: currentPage > 1 ? `?page=${currentPage - 1}` : null,
+            next: currentPage < numPages ? `?page=${currentPage + 1}` : null,
+            pageNumbers: range(
+              Math.max(currentPage - 5, 1),
+              Math.min(currentPage + 5, numPages) + 1
+            ).map((p) => ({
+              active: p === currentPage,
+              href: `?page=${p}`,
+              text: p.toLocaleString(),
+            })),
+          },
+        });
+      } else next(createError(404));
     });
-  else res.redirect("/");
+  } else res.redirect("/");
 });
 
 export default router;

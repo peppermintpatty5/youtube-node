@@ -27,7 +27,7 @@
     "sequelize": "^6.29.0"
   },
   "devDependencies": {
-    "@prettier/plugin-pug": "^2.3.0",
+    "@prettier/plugin-pug": "^3.0.0",
     "@types/cookie-parser": "^1.4.3",
     "@types/express": "^4.17.14",
     "@types/http-errors": "^2.0.1",
@@ -42,7 +42,7 @@
     "eslint-plugin-import": "^2.26.0",
     "nodemon": "^3.0.1",
     "npm-run-all": "^4.1.5",
-    "prettier": "2.7.1",
+    "prettier": "3.2.5",
     "sass": "^1.56.1",
     "typescript": "^4.9.3"
   }

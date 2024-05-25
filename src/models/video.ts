@@ -92,7 +92,7 @@ export default class Video extends Model<
       },
       {
         sequelize,
-      }
+      },
     );
 
     return Video;

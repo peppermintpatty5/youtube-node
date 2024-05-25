@@ -57,7 +57,7 @@ function insertIntoDatabase(v: VideoInfo, localVideoPath: string | null) {
         thumbnail: v.thumbnail,
         ext: v.ext,
         localVideoPath,
-      })
+      }),
     );
 }
 
@@ -76,7 +76,7 @@ async function indexVideos() {
       const basename = path.basename(relPath, ".info.json"); // bar
 
       const vInfo = JSON.parse(
-        fs.readFileSync(file, { encoding: "utf-8" })
+        fs.readFileSync(file, { encoding: "utf-8" }),
       ) as VideoInfo;
       const localVideoPath =
         vInfo.ext !== undefined

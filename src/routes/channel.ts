@@ -40,7 +40,7 @@ router.get("/:id", (req, res, next) => {
         const numPages = Math.ceil(numVideos / pageSize);
         const currentPage = Math.max(
           1,
-          Math.min(numPages, parseInt((page ?? "1").toString(), 10) || 1)
+          Math.min(numPages, parseInt((page ?? "1").toString(), 10) || 1),
         );
 
         const videoSection = await channel.getVideos({
@@ -64,7 +64,7 @@ router.get("/:id", (req, res, next) => {
             next: currentPage < numPages ? `?page=${currentPage + 1}` : null,
             pageNumbers: range(
               Math.max(currentPage - 5, 1),
-              Math.min(currentPage + 5, numPages) + 1
+              Math.min(currentPage + 5, numPages) + 1,
             ).map((p) => ({
               active: p === currentPage,
               href: `?page=${p}`,

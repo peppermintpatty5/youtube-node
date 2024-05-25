@@ -29,7 +29,7 @@ app.use(express.static(path.join(__dirname, "../public")));
 // serve Bootstrap files
 app.use(
   "/js",
-  express.static(path.join(__dirname, "../node_modules/bootstrap/dist/js"))
+  express.static(path.join(__dirname, "../node_modules/bootstrap/dist/js")),
 );
 // serve compiled CSS files
 app.use("/stylesheets", express.static(path.join(__dirname, "css")));

@@ -70,7 +70,7 @@ export default class Channel extends Model<
       },
       {
         sequelize,
-      }
+      },
     );
 
     return Channel;

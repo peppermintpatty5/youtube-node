@@ -6,6 +6,8 @@ services:
       POSTGRES_USER: ${DB_USERNAME}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_DATABASE}
+    volumes:
+      - dbdata:/var/lib/postgresql/data
   app:
     depends_on:
       - db
@@ -21,3 +23,5 @@ services:
       - NODE_ENV=production
     volumes:
       - ./videos:/usr/src/app/videos:ro
+volumes:
+  dbdata:

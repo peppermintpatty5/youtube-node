@@ -1,6 +1,7 @@
 # youtube-node
 
-A simple website for hosting your archived YouTube videos. This project is a rewrite of [`pocket-youtube`](https://github.com/peppermintpatty5/pocket-youtube/) in Node.js.
+A simple website for hosting your archived YouTube videos.
+This project is a rewrite of [`pocket-youtube`](https://github.com/peppermintpatty5/pocket-youtube/) in Node.js.
 
 ## Prerequisites
 
@@ -55,19 +56,27 @@ You will need the following software (ignore if you are using Docker):
 - `--write-thumbnail`
 
 To use this application, you **must** have the `.info.json` metadata files.
-Technically, everything else is optional. You do not need to have thumbnails or even the videos for this application to work correctly.
+Technically, everything else is optional.
+You do not need to have thumbnails or even the videos for this application to work correctly.
 
-Your `videos/` directory may be structured however you wish, with one restriction. For each `.info.json` file, the corresponding video and thumbnail files must have the same directory name and file name (not including extension).
+Your `videos/` directory may be structured however you wish, with one restriction.
+For each `.info.json` file, the corresponding video and thumbnail files must have the same directory name and file name (not including extension).
 
 ### Using `init_db`
 
-The database initialization script `init_db` reads line-by-line from standard input. Each line shall be a path to a `.info.json` file. You can manually type in each path, or use something like [`find`](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/find.html) to output the paths automatically. Here is an example which will index every video in the `videos` directory.
+The database initialization script `init_db` reads line-by-line from standard input.
+Each line shall be a path to a `.info.json` file.
+You can manually type in each path, or use something like [`find`](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/find.html) to output the paths automatically.
+Here is an example which will index every video in the `videos` directory.
 
 ```sh
 find videos/ -type f -name "*.info.json" | npm run init_db
 ```
 
-As of right now, there is no separate functionality to add or remove videos. Each invocation of `init_db` will completely replace the database contents. Therefore, it may be helpful to use a text file to gather all of your paths beforehand. Here is another example which indexes specific subdirectories.
+As of right now, there is no separate functionality to add or remove videos.
+Each invocation of `init_db` will completely replace the database contents.
+Therefore, it may be helpful to use a text file to gather all of your paths beforehand.
+Here is another example which indexes specific subdirectories.
 
 ```sh
 for x in foo bar baz; do

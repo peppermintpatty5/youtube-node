@@ -1,0 +1,30 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model channel {
+  id    String  @id @db.VarChar(24)
+  name  String? @db.VarChar(30)
+  video video[]
+}
+
+model video {
+  id               String    @id @db.VarChar(11)
+  title            String?   @db.VarChar(100)
+  description      String?   @db.VarChar(5000)
+  upload_date      DateTime? @db.Date
+  duration         Int?
+  view_count       Int?
+  like_count       Int?
+  dislike_count    Int?
+  thumbnail        String?   @db.VarChar(255)
+  ext              String?   @db.VarChar(4)
+  local_video_path String?   @db.VarChar(255)
+  channel_id       String    @db.VarChar(24)
+  channel          channel   @relation(fields: [channel_id], references: [id])
+}

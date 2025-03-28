@@ -6,8 +6,8 @@ import {
 } from "@react-router/dev/routes";
 
 export default [
-  index("routes/home.tsx"),
   layout("routes/layout.tsx", [
-    route("/channel/:channel_id", "routes/channel.tsx"),
+    index("routes/home.tsx"),
+    route("channel/:channel_id", "routes/channel.tsx"),
   ]),
 ] satisfies RouteConfig;

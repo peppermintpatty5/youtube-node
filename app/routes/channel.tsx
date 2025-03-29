@@ -1,9 +1,10 @@
 import { prisma } from "lib/prisma";
 import type { Route } from "./+types/channel";
+import { Link } from "react-router";
 
 export async function loader({ params }: Route.LoaderArgs) {
   const channel = await prisma.channel.findUnique({
-    where: { id: params.channel_id },
+    where: { id: params.channelId },
     include: { videos: true },
   });
 
@@ -19,7 +20,9 @@ export default function Channel({ loaderData }: Route.ComponentProps) {
       <h1 className="text-4xl">{name}</h1>
       <ol>
         {videos.map((video) => (
-          <li>{video.title}</li>
+          <li key={video.id}>
+            <Link to={`/watch?v=${video.id}`}>{video.title}</Link>
+          </li>
         ))}
       </ol>
     </>

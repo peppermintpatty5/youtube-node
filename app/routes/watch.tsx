@@ -17,6 +17,10 @@ export async function loader({ request }: Route.LoaderArgs) {
   else throw new Response("Not found", { status: 404 });
 }
 
+export function meta({ data }: Route.MetaArgs) {
+  return [{ title: data.title }];
+}
+
 export default function Watch({ loaderData }: Route.ComponentProps) {
   const { channel, title } = loaderData;
 

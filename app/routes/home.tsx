@@ -2,10 +2,14 @@ import { prisma } from "lib/prisma";
 import type { Route } from "./+types/home";
 import { Link } from "react-router";
 
-export async function loader({ params }: Route.LoaderArgs) {
+export async function loader({}: Route.LoaderArgs) {
   const channels = await prisma.channel.findMany();
 
   return channels;
+}
+
+export function meta({}: Route.MetaArgs) {
+  return [{ title: "Home" }];
 }
 
 export default function Home({ loaderData }: Route.ComponentProps) {

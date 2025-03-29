@@ -11,4 +11,5 @@ export default [
     route("channel/:channelId", "routes/channel.tsx"),
     route("watch", "routes/watch.tsx"),
   ]),
+  route("video/:videoId", "routes/video.ts"),
 ] satisfies RouteConfig;

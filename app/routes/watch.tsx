@@ -22,11 +22,12 @@ export function meta({ data }: Route.MetaArgs) {
 }
 
 export default function Watch({ loaderData }: Route.ComponentProps) {
-  const { channel, title } = loaderData;
+  const { channel, id, title } = loaderData;
 
   return (
     <>
       <h1 className="text-4xl">{title}</h1>
+      <video controls src={`/video/${id}`}></video>
       <p>
         Uploaded by <Link to={`/channel/${channel.id}`}>{channel.name}</Link>
       </p>
